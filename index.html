@@ -91,8 +91,14 @@
     /* Trail Buddy foundation — consumed by later lanes */
     .sticker{background:var(--cream);border:var(--sticker-outline);border-radius:var(--radius-sticker);box-shadow:var(--shadow-sticker)}
     .sticker-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:8px 16px;background:var(--cream);border:var(--sticker-outline);border-radius:var(--radius-sticker);box-shadow:var(--shadow-sticker);font:600 14px/1.2 var(--font-display);color:var(--pine);cursor:pointer;transition:transform .12s ease,box-shadow .12s ease}.sticker-btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--pine)}
+    #map{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+    #pin-loupe{position:fixed;z-index:1600;width:120px;height:120px;border-radius:50%;overflow:hidden;background:var(--map);border:var(--sticker-outline);box-shadow:0 0 0 4px var(--cream),var(--shadow-sticker);pointer-events:none;touch-action:none;transition:transform .12s ease}
+    #pin-loupe[hidden]{display:none}
+    .loupe-magnifier{position:absolute;transform:scale(2);transform-origin:0 0}
+    .loupe-magnifier img{max-width:none!important;max-height:none!important}
+    .loupe-crosshair{position:absolute;inset:0;pointer-events:none}
     .sticker-chip{display:inline-flex;align-items:center;gap:5px;min-height:32px;padding:4px 12px;background:var(--cream);border:var(--sticker-outline);border-radius:999px;box-shadow:2px 2px 0 var(--pine);font:600 12px/1 var(--font-display);color:var(--pine)}
-    @media(prefers-reduced-motion:reduce){.control-dock{transition:none}#map-route-action[aria-busy=true],#map-route-action[aria-busy=true] .finding-dots span{animation:none;background:#bfe3bd;transform:none;opacity:1}.sticker-btn{transition:none}.trail-step .step-flag{animation:none}html{scroll-behavior:auto}}
+    @media(prefers-reduced-motion:reduce){.control-dock{transition:none}#map-route-action[aria-busy=true],#map-route-action[aria-busy=true] .finding-dots span{animation:none;background:#bfe3bd;transform:none;opacity:1}.sticker-btn{transition:none}.trail-step .step-flag{animation:none}html{scroll-behavior:auto}#pin-loupe{transition:none}}
   </style>
 </head>
 <body class="map-first">
@@ -257,6 +263,7 @@
       </div>
     </section>
   </main>
+  <div id="pin-loupe" hidden aria-hidden="true"><div class="loupe-magnifier"></div><svg class="loupe-crosshair" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 16v26M60 78v26M16 60h26M78 60h26" stroke="var(--pine)" stroke-width="2.5" stroke-linecap="round"/><circle cx="60" cy="60" r="4" fill="var(--accent)" stroke="var(--cream)" stroke-width="2"/></svg></div>
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
   <aside id="analytics-consent" class="consent" aria-labelledby="consent-title" hidden><h2 id="consent-title">Help improve the next hike?</h2><p>Optional Google Analytics measures visits and basic app actions. Your coordinates, files, and photos are excluded. The planner works the same either way.</p><div class="consent-actions"><button id="analytics-decline">No thanks</button><button id="analytics-accept">Allow analytics</button></div><button id="consent-close" class="text-button consent-dismiss" hidden>Keep current choice</button><span class="small" id="consent-status"></span></aside>
   <dialog id="route-details-dialog" aria-labelledby="route-details-title"><div class="route-details-heading"><h2 id="route-details-title">Route details</h2><button id="close-route-details" type="button">Close</button></div>
@@ -1281,6 +1288,156 @@
     setSnap('peek');
     updateDockState();
     // END STAGE UI
+// BEGIN LOUPE UI
+    // BEGIN LOUPE STATE
+    const LOUPE_ARM_MS = 200, LOUPE_SLOP_PX = 10;
+    function loupeGestureInitial() { return { phase: 'idle', pointerId: null, startX: 0, startY: 0 }; }
+    // Pure hold-to-place / pin-drag gesture arbitration. Events:
+    // { type: 'down'|'move'|'up'|'cancel'|'timer'|'dragstart'|'drag'|'dragend',
+    //   x, y, pointerId, pointerType, adding, onMarker }
+    // Returns { gesture, effects } where effects are DOM instructions:
+    // place-pin, disable-handlers, show-loupe, move-pin, update-loupe,
+    // commit-pin, restore-handlers, suppress-click, hide-loupe.
+    function loupeGestureReduce(gesture, event) {
+      const idle = () => ({ gesture: loupeGestureInitial(), effects: [] });
+      const stay = () => ({ gesture, effects: [] });
+      if (event.type === 'down') {
+        // A second finger while armed means pinch: commit and hand control back to the map.
+        if (gesture.phase === 'armed') return { gesture: loupeGestureInitial(), effects: ['commit-pin', 'restore-handlers', 'hide-loupe'] };
+        if (gesture.phase === 'pending') return idle();
+        if (gesture.phase !== 'idle') return stay();
+        if (event.pointerType !== 'touch' || !event.adding || event.onMarker) return stay();
+        return { gesture: { phase: 'pending', pointerId: event.pointerId, startX: event.x, startY: event.y }, effects: [] };
+      }
+      if (event.type === 'dragstart') {
+        if (gesture.phase !== 'idle' || event.pointerType !== 'touch') return stay();
+        return { gesture: { ...loupeGestureInitial(), phase: 'pin-drag' }, effects: ['show-loupe'] };
+      }
+      if (gesture.phase === 'pin-drag') {
+        if (event.type === 'drag') return { gesture, effects: ['update-loupe'] };
+        if (event.type === 'dragend') return { gesture: loupeGestureInitial(), effects: ['hide-loupe'] };
+        return stay();
+      }
+      if (gesture.phase === 'pending') {
+        if (event.pointerId !== gesture.pointerId) return stay();
+        if (event.type === 'timer') return { gesture: { ...gesture, phase: 'armed' }, effects: ['place-pin', 'disable-handlers', 'show-loupe'] };
+        if (event.type === 'move') return Math.hypot(event.x - gesture.startX, event.y - gesture.startY) > LOUPE_SLOP_PX ? { gesture: { ...gesture, phase: 'panning' }, effects: [] } : stay();
+        if (event.type === 'up' || event.type === 'cancel') return idle(); // quick tap: click-to-place fires unchanged
+        return stay();
+      }
+      if (gesture.phase === 'panning') {
+        if ((event.type === 'up' || event.type === 'cancel') && event.pointerId === gesture.pointerId) return idle();
+        return stay();
+      }
+      if (gesture.phase === 'armed') {
+        if (event.pointerId !== gesture.pointerId) return stay();
+        if (event.type === 'move') return { gesture, effects: ['move-pin', 'update-loupe'] };
+        if (event.type === 'up') return { gesture: loupeGestureInitial(), effects: ['commit-pin', 'restore-handlers', 'suppress-click', 'hide-loupe'] };
+        if (event.type === 'cancel') return { gesture: loupeGestureInitial(), effects: ['commit-pin', 'restore-handlers', 'hide-loupe'] };
+        return stay();
+      }
+      return stay();
+    }
+    // END LOUPE STATE
+    const LOUPE_RADIUS = 60, LOUPE_SCALE = 2, LOUPE_LIFT = 100;
+    let loupeMap = null, loupeEl = null, loupeMag = null;
+    let loupeGesture = loupeGestureInitial(), loupeArmTimer = 0, loupeSuppressTimer = 0;
+    let loupeSuppressClick = false, loupeHandlersDisabled = false, loupeRefreshFrame = 0;
+    let loupeDraggedMarker = null, loupeDraggedIndex = -1, loupeDownLatLng = null, loupeLastPointerType = 'mouse';
+    function loupeConsumeClickSuppression() { const was = loupeSuppressClick; loupeSuppressClick = false; clearTimeout(loupeSuppressTimer); return was; }
+    function loupeRefreshContent() {
+      if (!loupeMap || !loupeMag) return;
+      const pane = loupeMap.getPane('tilePane'); if (!pane) return;
+      loupeMag.replaceChildren(pane.cloneNode(true));
+      const size = loupeMap.getSize(); loupeMag.style.width = size.x + 'px'; loupeMag.style.height = size.y + 'px';
+    }
+    function loupeScheduleRefresh() {
+      if (!loupeEl || loupeEl.hidden || loupeRefreshFrame) return;
+      loupeRefreshFrame = requestAnimationFrame(() => { loupeRefreshFrame = 0; loupeRefreshContent(); });
+    }
+    function loupePlace(latlng) {
+      if (!latlng || !loupeEl || loupeEl.hidden) return;
+      const pt = loupeMap.latLngToContainerPoint(latlng);
+      loupeMag.style.left = (LOUPE_RADIUS - LOUPE_SCALE * pt.x) + 'px';
+      loupeMag.style.top = (LOUPE_RADIUS - LOUPE_SCALE * pt.y) + 'px';
+      const rect = loupeMap.getContainer().getBoundingClientRect(), cx = rect.left + pt.x, cy = rect.top + pt.y, size = LOUPE_RADIUS * 2;
+      let top = cy - LOUPE_LIFT - size;
+      if (top < 8) top = cy + LOUPE_LIFT; // not enough room above the finger: flip below
+      top = Math.min(top, window.innerHeight - size - 8);
+      loupeEl.style.left = Math.round(Math.min(Math.max(cx - LOUPE_RADIUS, 8), window.innerWidth - size - 8)) + 'px';
+      loupeEl.style.top = Math.round(top) + 'px';
+    }
+    function loupeShow(latlng) { if (!latlng || !loupeEl) return; loupeEl.hidden = false; loupeRefreshContent(); loupePlace(latlng); }
+    function loupeHide() { if (loupeEl) loupeEl.hidden = true; loupeDraggedMarker = null; loupeDraggedIndex = -1; }
+    function loupeApplyEffects(effects, domEvent) {
+      for (const effect of effects) {
+        if (effect === 'place-pin') {
+          if (!loupeDownLatLng) continue;
+          addMapPinAt(loupeDownLatLng);
+          const layers = markers.getLayers();
+          loupeDraggedMarker = layers[layers.length - 1] || null;
+          loupeDraggedIndex = state.points.length - 1;
+        } else if (effect === 'disable-handlers') {
+          loupeMap.dragging?.disable(); loupeMap.tapHold?.disable(); loupeHandlersDisabled = true;
+        } else if (effect === 'restore-handlers') {
+          if (loupeHandlersDisabled) { loupeMap.dragging?.enable(); loupeMap.tapHold?.enable(); loupeHandlersDisabled = false; }
+        } else if (effect === 'show-loupe') {
+          loupeShow(loupeDraggedMarker ? loupeDraggedMarker.getLatLng() : null);
+        } else if (effect === 'move-pin') {
+          if (loupeDraggedMarker && domEvent) loupeDraggedMarker.setLatLng(loupeMap.mouseEventToLatLng(domEvent));
+        } else if (effect === 'update-loupe') {
+          loupePlace(loupeDraggedMarker ? loupeDraggedMarker.getLatLng() : null);
+        } else if (effect === 'commit-pin') {
+          // Only the hold-to-place flow commits here; existing-pin drags commit through their own dragend handler.
+          if (loupeDraggedMarker && loupeDraggedIndex >= 0 && state.points[loupeDraggedIndex]) {
+            const moved = loupeDraggedMarker.getLatLng().wrap(), i = loupeDraggedIndex;
+            mutateWaypoints(() => { state.points[i] = { ...state.points[i], lat: moved.lat, lon: moved.lng, manual: true }; state.source = 'Edited waypoints'; });
+          }
+          loupeDraggedMarker = null; loupeDraggedIndex = -1;
+        } else if (effect === 'suppress-click') {
+          loupeSuppressClick = true;
+          clearTimeout(loupeSuppressTimer); loupeSuppressTimer = setTimeout(() => { loupeSuppressClick = false; }, 600);
+        } else if (effect === 'hide-loupe') {
+          loupeHide();
+        }
+      }
+    }
+    function loupeApplyEvent(event, domEvent) {
+      const wasPending = loupeGesture.phase === 'pending';
+      const result = loupeGestureReduce(loupeGesture, event);
+      loupeGesture = result.gesture;
+      if (wasPending && loupeGesture.phase !== 'pending') clearTimeout(loupeArmTimer);
+      loupeApplyEffects(result.effects, domEvent);
+    }
+    function initLoupe(mapInstance) {
+      if (loupeMap) return;
+      loupeMap = mapInstance; loupeEl = $('pin-loupe'); loupeMag = loupeEl.querySelector('.loupe-magnifier');
+      const container = loupeMap.getContainer();
+      container.addEventListener('pointerdown', event => {
+        loupeLastPointerType = event.pointerType;
+        if (!event.isPrimary && loupeGesture.phase === 'idle') return;
+        loupeDownLatLng = event.isPrimary ? loupeMap.mouseEventToLatLng(event) : loupeDownLatLng;
+        loupeApplyEvent({ type: 'down', x: event.clientX, y: event.clientY, pointerId: event.pointerId, pointerType: event.pointerType, adding: !!state.adding, onMarker: !!event.target.closest('.leaflet-marker-icon') }, event);
+        if (loupeGesture.phase === 'pending') loupeArmTimer = setTimeout(() => loupeApplyEvent({ type: 'timer', pointerId: event.pointerId }), LOUPE_ARM_MS);
+      });
+      container.addEventListener('pointermove', event => {
+        if (!['pending', 'panning', 'armed'].includes(loupeGesture.phase)) return;
+        loupeApplyEvent({ type: 'move', x: event.clientX, y: event.clientY, pointerId: event.pointerId }, event);
+      });
+      for (const type of ['pointerup', 'pointercancel']) container.addEventListener(type, event => {
+        if (loupeGesture.phase === 'idle' || loupeGesture.phase === 'pin-drag') return;
+        loupeApplyEvent({ type: type === 'pointerup' ? 'up' : 'cancel', pointerId: event.pointerId }, event);
+      });
+      // iOS long-press callout would kill hold-to-place; pin right-click removal is a marker handler and stays.
+      container.addEventListener('contextmenu', event => { if (state.adding && !event.target.closest('.number-pin')) event.preventDefault(); });
+      loupeMap.on('move zoomend tileload load', loupeScheduleRefresh);
+    }
+    function loupeBindMarker(marker) {
+      marker.on('dragstart', () => { loupeDraggedMarker = marker; loupeDraggedIndex = -1; loupeApplyEvent({ type: 'dragstart', pointerType: loupeLastPointerType }); });
+      marker.on('drag', () => loupeApplyEvent({ type: 'drag' }));
+      marker.on('dragend', () => loupeApplyEvent({ type: 'dragend' }));
+    }
+// END LOUPE UI
     function parseCoordinates(text) {
       text = text.trim().replace(/^\uFEFF/, '').replace(/^lat(?:itude)?\s*[,;\t]\s*(?:lon(?:gitude)?|lng)\s*(?:\r?\n|\r)/i, '');
       if (!text) throw new Error('Add at least one latitude/longitude pair first.');
@@ -2095,6 +2252,7 @@
           const removePin = element('button', 'Delete this waypoint'); removePin.type = 'button'; removePin.addEventListener('click', event => { event.stopPropagation(); removeMapPin(i); }); popup.append(removePin);
           marker.on('contextmenu', () => removeMapPin(i));
           marker.on('dragend', event => { const moved = event.target.getLatLng().wrap(); mutateWaypoints(() => { state.points[i] = { ...state.points[i], lat: moved.lat, lon: moved.lng, manual: true }; state.source = 'Edited waypoints'; }, `Waypoint ${i + 1} moved. Route options will update.`); });
+          loupeBindMarker(marker);
           marker.bindPopup(popup).addTo(markers);
         });
         if (fit) fitPoints();
@@ -2492,9 +2650,11 @@
       map.attributionControl.setPrefix(false);
       tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, crossOrigin: 'anonymous', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" aria-label="OpenStreetMap contributors and licence">OpenStreetMap</a>' }).addTo(map);
       markers = L.layerGroup().addTo(map); tracks = L.layerGroup().addTo(map);
-      map.on('click', event => { sheetAutoPeek(); if (!state.adding) return; if (state.points.length >= MAX_WAYPOINTS) { toast(`Maximum ${MAX_WAYPOINTS} waypoints.`); return; } const p = event.latlng.wrap(), number = state.points.length + 1; mutateWaypoints(() => { state.points.push({ ...point(p.lat, p.lng, `Map waypoint ${number}`), manual: true }); state.source = 'Manual map pins'; }, `Waypoint ${number} added.`); track('map_pin_added'); });
+      map.on('click', event => { if (loupeConsumeClickSuppression()) return; sheetAutoPeek(); if (!state.adding) return; addMapPinAt(event.latlng); });
+      function addMapPinAt(latlng) { if (state.points.length >= MAX_WAYPOINTS) { toast(`Maximum ${MAX_WAYPOINTS} waypoints.`); return; } const p = latlng.wrap(), number = state.points.length + 1; mutateWaypoints(() => { state.points.push({ ...point(p.lat, p.lng, `Map waypoint ${number}`), manual: true }); state.source = 'Manual map pins'; }, `Waypoint ${number} added.`); track('map_pin_added'); }
       tileLayer.on('tileerror', () => { toast('Some basemap tiles could not load. Check your connection; do not infer paths from missing tiles.'); });
       setMapInteraction(true);
+      initLoupe(map);
       let resizeFrame, previousWidth = 0, previousHeight = 0;
       new ResizeObserver(entries => {
         const { width, height } = entries[0].contentRect;
