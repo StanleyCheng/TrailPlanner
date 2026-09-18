@@ -127,8 +127,11 @@ test('touch-dragging an existing pin shows the loupe for the drag duration only'
   assert.deepEqual(r.effects, ['hide-loupe']);
 });
 
-test('mouse drags of existing pins stay loupe-free on desktop', () => {
-  const r = loupeGestureReduce(loupeGestureInitial(), { type: 'dragstart', pointerType: 'mouse' });
+test('mouse drags of existing pins show the loupe for the drag duration only', () => {
+  let r = loupeGestureReduce(loupeGestureInitial(), { type: 'dragstart', pointerType: 'mouse' });
+  assert.equal(r.gesture.phase, 'pin-drag');
+  assert.deepEqual(r.effects, ['show-loupe']);
+  r = loupeGestureReduce(r.gesture, { type: 'dragend' });
   assert.equal(r.gesture.phase, 'idle');
-  assert.deepEqual(r.effects, []);
+  assert.deepEqual(r.effects, ['hide-loupe']);
 });

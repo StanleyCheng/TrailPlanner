@@ -92,7 +92,8 @@
     .sticker{background:var(--cream);border:var(--sticker-outline);border-radius:var(--radius-sticker);box-shadow:var(--shadow-sticker)}
     .sticker-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:8px 16px;background:var(--cream);border:var(--sticker-outline);border-radius:var(--radius-sticker);box-shadow:var(--shadow-sticker);font:600 14px/1.2 var(--font-display);color:var(--pine);cursor:pointer;transition:transform .12s ease,box-shadow .12s ease}.sticker-btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--pine)}
     #map{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
-    #pin-loupe{position:fixed;z-index:1600;width:120px;height:120px;border-radius:50%;overflow:hidden;background:var(--map);border:var(--sticker-outline);box-shadow:0 0 0 4px var(--cream),var(--shadow-sticker);pointer-events:none;touch-action:none;transition:transform .12s ease}
+    /* Border-free ring (box-shadow, not border): keeps the content box a full 120×120 so the crosshair centre and the magnifier's drop point coincide exactly — the pin tip lands on the crosshair. */
+    #pin-loupe{position:fixed;z-index:1600;width:120px;height:120px;border-radius:50%;overflow:hidden;background:var(--map);box-shadow:0 0 0 2px var(--pine),0 0 0 6px var(--cream),var(--shadow-sticker);pointer-events:none;touch-action:none;transition:transform .12s ease}
     #pin-loupe[hidden]{display:none}
     .loupe-magnifier{position:absolute;transform:scale(1.2);transform-origin:0 0}
     .loupe-magnifier img{max-width:none!important;max-height:none!important}
@@ -1463,7 +1464,8 @@
         return { gesture: { phase: 'pending', pointerId: event.pointerId, startX: event.x, startY: event.y }, effects: [] };
       }
       if (event.type === 'dragstart') {
-        if (gesture.phase !== 'idle' || event.pointerType !== 'touch') return stay();
+        // Pin drags show the loupe for every pointer type, for the drag duration only.
+        if (gesture.phase !== 'idle') return stay();
         return { gesture: { ...loupeGestureInitial(), phase: 'pin-drag' }, effects: ['show-loupe'] };
       }
       if (gesture.phase === 'pin-drag') {
@@ -1492,7 +1494,7 @@
       return stay();
     }
     // END LOUPE STATE
-    const LOUPE_RADIUS = 60, LOUPE_SCALE = 1.2, LOUPE_LIFT = 30, LOUPE_OFFSET_X = 30;
+    const LOUPE_RADIUS = 60, LOUPE_SCALE = 1.2, LOUPE_LIFT = 10, LOUPE_OFFSET_X = 10;
     let loupeMap = null, loupeEl = null, loupeMag = null;
     let loupeGesture = loupeGestureInitial(), loupeArmTimer = 0, loupeSuppressTimer = 0;
     let loupeSuppressClick = false, loupeHandlersDisabled = false, loupeRefreshFrame = 0;
