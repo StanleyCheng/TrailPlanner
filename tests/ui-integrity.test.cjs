@@ -147,7 +147,8 @@ test('trail bar exposes bootprint step navigation and a live status line', () =>
   assert.match(stages, /function stageNavTarget\(/);
   assert.match(stages, /\$\('find-routes'\)\.click\(\)/);
   assert.match(html, /id="status-banner" class="status-banner" hidden><span id="status-banner-text"><\/span><button id="status-banner-dismiss" type="button" aria-label="Dismiss message">/);
-  assert.match(html, /id="status-subline" class="status-subline" hidden><p id="status-ticker" class="status-ticker"><\/p><button id="status-cancel"/);
+  assert.match(html, /id="status-subline" class="status-subline" hidden><span id="cairn" class="cairn" hidden aria-hidden="true">/);
+  assert.match(html, /<\/span><p id="status-ticker" class="status-ticker"><\/p><button id="status-cancel"/);
   assert.match(stages, /statusSetStep\(/);
   assert.match(stages, /statusSetNotice\(/);
   assert.doesNotMatch(stages, /setBarStatus/);
