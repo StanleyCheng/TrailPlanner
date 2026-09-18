@@ -65,12 +65,39 @@ test('pointercancel after arming commits and restores without click suppression'
   assert.deepEqual(r.effects, ['commit-pin', 'restore-handlers', 'hide-loupe']);
 });
 
-test('non-touch pointers and inactive adding mode are inert', () => {
-  for (const event of [down({ pointerType: 'mouse' }), down({ pointerType: 'pen' }), down({ adding: false }), down({ onMarker: true })]) {
+test('mouse and pen presses arm like touch; inactive adding mode and marker presses stay inert', () => {
+  for (const pointerType of ['mouse', 'pen']) {
+    const r = loupeGestureReduce(loupeGestureInitial(), down({ pointerType }));
+    assert.equal(r.gesture.phase, 'pending', `${pointerType} press-and-hold should arm`);
+    assert.deepEqual(r.effects, []);
+  }
+  for (const event of [down({ adding: false }), down({ onMarker: true })]) {
     const r = loupeGestureReduce(loupeGestureInitial(), event);
     assert.equal(r.gesture.phase, 'idle');
     assert.deepEqual(r.effects, []);
   }
+});
+
+test('only the primary mouse button can arm hold-to-place', () => {
+  for (const button of [1, 2]) {
+    const r = loupeGestureReduce(loupeGestureInitial(), down({ pointerType: 'mouse', button }));
+    assert.equal(r.gesture.phase, 'idle', `mouse button ${button} must not place pins`);
+    assert.deepEqual(r.effects, []);
+  }
+  assert.equal(loupeGestureReduce(loupeGestureInitial(), down({ pointerType: 'mouse', button: 0 })).gesture.phase, 'pending');
+});
+
+test('mouse press-and-hold places a pin, shows the loupe and suppresses the release click', () => {
+  let g = loupeGestureReduce(loupeGestureInitial(), down({ pointerType: 'mouse', button: 0 })).gesture;
+  assert.equal(g.phase, 'pending');
+  let r = loupeGestureReduce(g, { type: 'timer', pointerId: 1 });
+  assert.equal(r.gesture.phase, 'armed');
+  assert.deepEqual(r.effects, ['place-pin', 'disable-handlers', 'show-loupe']);
+  r = loupeGestureReduce(r.gesture, { type: 'move', x: 140, y: 240, pointerId: 1 });
+  assert.deepEqual(r.effects, ['move-pin', 'update-loupe']);
+  r = loupeGestureReduce(r.gesture, { type: 'up', pointerId: 1 });
+  assert.equal(r.gesture.phase, 'idle');
+  assert.deepEqual(r.effects, ['commit-pin', 'restore-handlers', 'suppress-click', 'hide-loupe']);
 });
 
 test('events from a different pointer never disturb the tracked gesture', () => {
