@@ -10,6 +10,7 @@ const planner = read('lib/planner-ui.js').trim();
 const recognition = read('lib/recognition-ui.js').trim();
 const guidance = read('lib/guidance-ui.js').trim();
 const stages = read('lib/stage-ui.js').trim();
+const loupe = read('lib/loupe-ui.js').trim();
 const manifest = JSON.parse(read('site.webmanifest'));
 
 function inlineFragment(marker) {
@@ -65,6 +66,7 @@ test('single-file build embeds the authored UI fragments exactly', () => {
   assert.equal(inlineFragment('RECOGNITION UI'), recognition);
   assert.equal(inlineFragment('GUIDANCE UI'), guidance);
   assert.equal(inlineFragment('STAGE UI'), stages);
+  assert.equal(inlineFragment('LOUPE UI'), loupe);
 });
 
 test('method guidance and map gestures use the existing planning controls', () => {
