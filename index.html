@@ -985,9 +985,9 @@
     let map = null, markers = null, tracks = null, tileLayer = null, toastTimer;
     let exportUrl = null, exportFile = null, draftRevision = 0;
     const GA_MEASUREMENT_ID = 'G-YF4QD5R18X';
-    const GA_PAGE = 'https://stanleycheng.github.io/gpx_design/';
+    const GA_PAGE = 'https://stanleycheng.github.io/TrailPlanner/';
     const CONSENT_KEY = 'trailcraft.analytics-consent.v1';
-    const analyticsProduction = location.hostname === 'stanleycheng.github.io' && location.pathname.startsWith('/gpx_design/');
+    const analyticsProduction = location.hostname === 'stanleycheng.github.io' && location.pathname.toLowerCase().startsWith('/trailplanner/');
     const privacySignal = navigator.globalPrivacyControl === true || navigator.doNotTrack === '1';
     const analyticsEvents = new Set(['waypoints_previewed','file_imported','photo_reviewed','photo_gps_confirmed','map_pin_added','gpx_exported','png_exported','draft_discarded']);
     let analyticsChoice = null, analyticsStarted = false;
@@ -1001,7 +1001,7 @@
       analyticsStarted = true;
       gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
       gtag('js', new Date());
-      gtag('config', GA_MEASUREMENT_ID, { send_page_view: false, page_location: GA_PAGE, page_title: 'TrailPlanner — GPX route planner', page_referrer: '', allow_google_signals: false, allow_ad_personalization_signals: false, cookie_prefix: 'trailplanner', cookie_domain: 'none', cookie_path: '/gpx_design/', cookie_expires: 90 * 86400, cookie_flags: 'SameSite=Lax;Secure' });
+      gtag('config', GA_MEASUREMENT_ID, { send_page_view: false, page_location: GA_PAGE, page_title: 'TrailPlanner — GPX route planner', page_referrer: '', allow_google_signals: false, allow_ad_personalization_signals: false, cookie_prefix: 'trailplanner', cookie_domain: 'none', cookie_path: '/TrailPlanner/', cookie_expires: 90 * 86400, cookie_flags: 'SameSite=Lax;Secure' });
       gtag('event', 'page_view', { send_to: GA_MEASUREMENT_ID, page_location: GA_PAGE, page_title: 'TrailPlanner — GPX route planner', page_referrer: '' });
       const script = document.createElement('script'); script.async = true; script.id = 'trailcraft-google-tag'; script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`; script.referrerPolicy = 'origin'; script.onerror = () => { toast('Analytics could not load. All planning tools still work.'); }; document.head.append(script);
     }
@@ -1013,7 +1013,7 @@
       else {
         window['ga-disable-' + GA_MEASUREMENT_ID] = true;
         if (analyticsStarted) gtag('consent', 'update', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
-        for (const cookie of document.cookie.split(';')) { const name = cookie.split('=')[0].trim(); if (name.startsWith('trailcraft_')) document.cookie = `${name}=; Max-Age=0; Path=/gpx_design/; SameSite=Lax; Secure`; }
+        for (const cookie of document.cookie.split(';')) { const name = cookie.split('=')[0].trim(); if (name.startsWith('trailcraft_')) document.cookie = `${name}=; Max-Age=0; Path=/TrailPlanner/; SameSite=Lax; Secure`; }
       }
       $('analytics-consent').hidden = true; document.body.classList.remove('analytics-consent-open'); analyticsStatus();
     }
@@ -1707,7 +1707,7 @@
     const WAYPOINT_PIN_PATH = 'M12 1C5.9 1 1 5.8 1 11.7C1 19.5 12 29 12 29S23 19.5 23 11.7C23 5.8 18.1 1 12 1Z';
     let mapMarkersVisible = true;
     const routeRunAnimation = { frame: 0, dots: [] };
-    const ROUTE_BACKEND_URL = 'https://gpxdesign.vercel.app/api/plan-routes';
+    const ROUTE_BACKEND_URL = 'https://trailplanner.vercel.app/api/plan-routes';
     const routing = { selected: null, result: null, visible: new Set(), fingerprint: '', serial: 0, controller: null, worker: null, cache: new Map(), busy: false, searched: false, evidence: '', blockedUntil: 0 };
     const planSwitches = ['loop', 'official-fords', 'harder-hiking'];
     const planFields = ['region', 'order', ...planSwitches, 'date', 'distance', 'radius', 'tolerance', 'roads', 'provider'];

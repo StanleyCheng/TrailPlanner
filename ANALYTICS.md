@@ -5,7 +5,7 @@
 - Web stream: **Trailcraft GitHub Pages**
 - Stream ID: **15532103444**
 - Measurement ID: **G-YF4QD5R18X** (public, not an API secret)
-- Site: https://stanleycheng.github.io/gpx_design/
+- Site: https://stanleycheng.github.io/TrailPlanner/
 - Reporting time zone: **Hong Kong, UTC+08:00**
 - Currency: **HKD**
 - [Open Analytics](https://analytics.google.com/analytics/web/#/a18442354p552206689/reports/intelligenthome)
@@ -14,7 +14,7 @@ The property was created in the owner's existing Analytics account. Existing pro
 
 ## Privacy and consent
 
-The Google tag is loaded only on the production site and only after the visitor selects **Allow analytics**. Before consent, this app sends no Google Analytics requests, including cookieless pings. Declining has no effect on planning features. Global Privacy Control or Do Not Track keeps analytics off. The choice is kept locally for up to 180 days. Analytics cookies are prefixed for Trailcraft, host-only, scoped to `/gpx_design/`, and set to expire after 90 days.
+The Google tag is loaded only on the production site and only after the visitor selects **Allow analytics**. Before consent, this app sends no Google Analytics requests, including cookieless pings. Declining has no effect on planning features. Global Privacy Control or Do Not Track keeps analytics off. The choice is kept locally for up to 180 days. Analytics cookies are prefixed for Trailcraft, host-only, scoped to `/TrailPlanner/`, and set to expire after 90 days.
 
 Use **Privacy settings** in the footer to change the choice. Withdrawal disables collection and deletes this project's analytics cookies. Previously collected data is not automatically erased.
 
