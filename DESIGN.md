@@ -4,7 +4,7 @@ The reference for anyone (human or AI) modifying this UI. Spec-level decisions l
 
 ## Principles
 
-1. **Map-first.** Chrome never permanently shrinks the map. Controls borrow space (sheet snap points) and give it back (auto-peek); nothing docks permanently except the ~64px trail bar.
+1. **Map-first.** Chrome never permanently shrinks the map. Controls borrow space (sheet snap points) and give it back (auto-peek); nothing docks permanently except the ~64px trail bar. The top bar is fully transparent — only the brand floats over the map as an opaque sticker pill top-left (`pointer-events:none` on the bar, `auto` on the pill).
 2. **Split voice.** Playful visuals and microcopy for navigation, empty states, waiting and success. **Straight, precise voice for errors, safety notices, evidence and export disclaimers.** The mascot (cairn) appears only at loading/success — never with bad news. Users learn: when the app stops joking, pay attention.
 3. **Honest progress.** Only true signals: elapsed time, retry counts, timeout/pause states. Never fabricate server phases ("Snapping pins…" is a lie — the route API is a single POST). Waiting-framed flavor ("Still walking the map… 47s") is allowed **for Find only**.
 4. **One status voice.** The trail bar's status line is the single source of truth for what's happening. No competing status surfaces.
@@ -46,7 +46,7 @@ The reference for anyone (human or AI) modifying this UI. Spec-level decisions l
 
 ### Trail bar (always visible)
 
-Bottom bar, ~91px measured (navigation row + live status line, plus a subline row while a search runs) + `env(safe-area-inset-bottom)` as **padding-bottom** (targets clear the home indicator). Layout: **icon-only Back** (`←`, 44×44pt, slot reserved with `visibility:hidden` on step 1) | **bootprint stepper** | **Next / primary action**. The status line lives in the bar. Step name/number goes in the status line, never in the button row. Next labels shorten at ≤380px.
+Bottom bar (minimized on desktop: 12px grip, compact status line), ~91px measured on mobile (navigation row + live status line, plus a subline row while a search runs) + `env(safe-area-inset-bottom)` as **padding-bottom** (targets clear the home indicator). Layout: **icon-only Back** (`←`, 44×44pt, slot reserved with `visibility:hidden` on step 1) | **bootprint stepper** | **Next / primary action**. The status line lives in the bar. Step name/number goes in the status line, never in the button row. Next labels shorten at ≤380px.
 
 ### Status subline + banner
 
@@ -59,7 +59,7 @@ Small inline-SVG stacked-stone character (`#cairn`, ~28px: cream/sky/sunny stone
 
 ### Sheet snap points
 
-- **peek** = bar only · **half** ≈ 45% viewport · **full** ≈ 88% viewport.
+- **peek** = bar only · **half** ≈ 45% viewport · **full** ≈ 88% viewport, capped 16px below the top bar so the sheet never slides under it.
 - Measured from `visualViewport.height` **at gesture start** (never read dvh mid-drag); animate via `transform: translateY`, never height.
 - Drag from the **handle zone only** (`touch-action:none` + pointer capture). Content scrolls natively (`pan-y`); horizontal card scrollers claim their own gestures (`overscroll-behavior-x:contain`).
 - Map tap while half/full → auto-peek. Pin-adding mode locks at peek.
@@ -71,7 +71,7 @@ Dashed trail line with 5 alternating bootprints. Prints are 24–28px visuals in
 
 ### Loupe (pin placement)
 
-Touch-only circular ~120px magnifier floating ~100px above the finger (clamped to viewport). **CSS 2× magnification of the live map pane** — no second map instance, no extra tile requests. Crosshair marks the pin tip's ground point (the coordinate is the teardrop tip, not the icon center). Entries: hold-200ms-to-place and dragging an existing pin. iOS: suppress callout/selection on the map (`-webkit-touch-callout:none; user-select:none`) and `preventDefault` contextmenu during the gesture.
+Circular ~120px magnifier floating just NW (above-left) of the pointer — clamped to the viewport, never under the finger/cursor (flips SE near the top-left corner). **CSS 2× magnification of the live map pane** — no second map instance, no extra tile requests. Crosshair marks the pin tip's ground point (the coordinate is the teardrop tip, not the icon center). Entries: press-and-hold ~200ms to place (touch, mouse, and pen) and dragging an existing pin (touch). iOS: suppress callout/selection on the map (`-webkit-touch-callout:none; user-select:none`) and `preventDefault` contextmenu during the gesture.
 
 ### Status tiers (strict ownership)
 
