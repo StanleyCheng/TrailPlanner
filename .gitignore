@@ -79,3 +79,6 @@ Thumbs.db:encryptable
 Desktop.ini
 $RECYCLE.BIN/
 .vercel
+
+# QA artifacts
+qa-shots/
