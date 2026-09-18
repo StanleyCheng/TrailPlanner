@@ -14,7 +14,7 @@ const PROVIDERS = {
   fossgis: { name: 'FOSSGIS', url: 'https://overpass-api.de/api/interpreter' }
 };
 const PROVIDER_ORDER = ['fossgis', 'coffee', 'vk'];
-const PUBLIC_ORIGINS = new Set(['https://gpxdesign.vercel.app', 'https://stanleycheng.github.io', 'null']);
+const PUBLIC_ORIGINS = new Set(['https://trailplanner.vercel.app', 'https://gpxdesign.vercel.app', 'https://stanleycheng.github.io', 'null']);
 const mapCache = new Map();
 const officialCache = new Map();
 
@@ -172,7 +172,7 @@ async function fetchMapData(box, selected, fetcher, signal, now, areas = [], que
       const response = await fetcher(provider.url, {
         method: 'POST',
         body: new URLSearchParams({ data: query }),
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8', 'User-Agent': 'TrailPlanner/1.0 (+https://gpxdesign.vercel.app/)', Referer: 'https://gpxdesign.vercel.app/' },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8', 'User-Agent': 'TrailPlanner/1.0 (+https://trailplanner.vercel.app/)', Referer: 'https://trailplanner.vercel.app/' },
         signal: AbortSignal.any([signal, AbortSignal.timeout(PROVIDER_TIMEOUT_MS)])
       });
       const metrics = {}, data = await readJSON(response, MAX_MAP_BYTES, metrics);

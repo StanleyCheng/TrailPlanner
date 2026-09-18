@@ -177,7 +177,7 @@ test('map data providers offer automatic transient-error fallback', () => {
   assert.match(planner, /const automaticProviderOrder = \['fossgis', 'coffee', 'vk'\]/);
   assert.match(planner, /\[502, 503, 504\]\.includes\(response\.status\)/);
   assert.match(planner, /async function getMapData\(/);
-  assert.match(planner, /https:\/\/gpxdesign\.vercel\.app\/api\/plan-routes/);
+  assert.match(planner, /https:\/\/trailplanner\.vercel\.app\/api\/plan-routes/);
   assert.match(planner, /async function getBackendPlan\(/);
   assert.match(planner, /Using the local route engine\. Downloading paths from map providers/);
   assert.match(planner, /if \(!canTryAnotherProvider\(error\)/);

@@ -22,8 +22,8 @@ function fixture() {
   return { elements: [...nodes, ...ways, ...relations], osm3s: { timestamp_osm_base: '2026-08-31T00:00:00Z' } };
 }
 
-function routeRequest(points = [{ lat: 22, lon: 114.001 }, { lat: 22, lon: 114.004 }], origin = 'https://gpxdesign.vercel.app', settings = {}) {
-  return new Request('https://gpxdesign.vercel.app/api/plan-routes', {
+function routeRequest(points = [{ lat: 22, lon: 114.001 }, { lat: 22, lon: 114.004 }], origin = 'https://trailplanner.vercel.app', settings = {}) {
+  return new Request('https://trailplanner.vercel.app/api/plan-routes', {
     method: 'POST',
     headers: { Origin: origin, 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -76,9 +76,9 @@ test('an oversized streaming request is cancelled before its full body is buffer
     cancel() { cancelled = true; }
   });
   const handler = createRoutePlanHandler({ fetcher: async () => { throw new Error('must not fetch'); } });
-  const request = new Request('https://gpxdesign.vercel.app/api/plan-routes', {
+  const request = new Request('https://trailplanner.vercel.app/api/plan-routes', {
     method: 'POST', duplex: 'half', body,
-    headers: { Origin: 'https://gpxdesign.vercel.app', 'Content-Type': 'application/json' }
+    headers: { Origin: 'https://trailplanner.vercel.app', 'Content-Type': 'application/json' }
   });
   const response = await handler(request);
   assert.equal(response.status, 400);
@@ -90,7 +90,7 @@ test('an oversized streaming request is cancelled before its full body is buffer
 test('route backend rejects foreign origins and supports local-file preflight', async () => {
   const handler = createRoutePlanHandler({ fetcher: async () => { throw new Error('must not fetch'); } });
   assert.equal((await handler(routeRequest(undefined, 'https://evil.example'))).status, 403);
-  const preflight = await handler(new Request('https://gpxdesign.vercel.app/api/plan-routes', { method: 'OPTIONS', headers: { Origin: 'null' } }));
+  const preflight = await handler(new Request('https://trailplanner.vercel.app/api/plan-routes', { method: 'OPTIONS', headers: { Origin: 'null' } }));
   assert.equal(preflight.status, 204);
   assert.equal(preflight.headers.get('access-control-allow-origin'), 'null');
   assert.equal(preflight.headers.get('x-trailplanner-route-backend'), '1');
