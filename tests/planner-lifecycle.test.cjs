@@ -12,8 +12,8 @@ test('cancelling an active worker settles its promise and releases its reference
     terminate() { this.terminated = true; }
     postMessage() {}
   }
-  const factory = new Function('routing', 'Worker', 'URL', '$', 'toast', `${workerCode}; return workerPlan;`);
-  const plan = factory(routing, Worker, { createObjectURL: () => 'blob:test', revokeObjectURL: () => revoked++ }, () => ({ textContent: '' }), () => {});
+  const factory = new Function('routing', 'Worker', 'URL', '$', 'toast', 'statusFindDetail', `${workerCode}; return workerPlan;`);
+  const plan = factory(routing, Worker, { createObjectURL: () => 'blob:test', revokeObjectURL: () => revoked++ }, () => ({ textContent: '' }), () => {}, () => {});
   const promise = plan({}, [], {}, [], 1);
   controller.abort(new DOMException('Cancelled', 'AbortError'));
   await assert.rejects(promise, { name: 'AbortError' });
@@ -26,7 +26,7 @@ test('a worker postMessage failure terminates the worker immediately', async () 
   const routing = { controller: new AbortController(), serial: 1 };
   let terminated = false;
   class Worker { terminate() { terminated = true; } postMessage() { throw new Error('clone failure'); } }
-  const plan = new Function('routing', 'Worker', '$', 'toast', `${workerCode}; return workerPlan;`)(routing, Worker, () => ({ textContent: '' }), () => {});
+  const plan = new Function('routing', 'Worker', '$', 'toast', 'statusFindDetail', `${workerCode}; return workerPlan;`)(routing, Worker, () => ({ textContent: '' }), () => {}, () => {});
   await assert.rejects(plan({}, [], {}, [], 1), /clone failure/);
   assert.equal(terminated, true);
   assert.equal(routing.worker, null);
