@@ -34,7 +34,7 @@ The reference for anyone (human or AI) modifying this UI. Spec-level decisions l
 
 - `--font-display: 'Fredoka', var(--font)` — display, step labels, buttons, chips. Rounded and chunky; this is the cute voice.
 - `--font: 'DM Sans', sans-serif` — body copy, forms, dense information.
-- `--display` (DM Serif Display) is **legacy** — being retired; do not use in new work.
+- `--display` (DM Serif Display) is **retired** — removed from the Google Fonts link and `:root`; every display usage is `--font-display`.
 
 ### Foundation utility classes (additive; consume these, don't reinvent)
 
@@ -46,7 +46,16 @@ The reference for anyone (human or AI) modifying this UI. Spec-level decisions l
 
 ### Trail bar (always visible)
 
-Bottom bar, ~64px + `env(safe-area-inset-bottom)` as **padding-bottom** (targets clear the home indicator). Layout: **icon-only Back** (`←`, 44×44pt, slot reserved with `visibility:hidden` on step 1) | **bootprint stepper** | **Next / primary action**. The status line (below) lives in the bar. Step name/number goes in the status line, never in the button row. Next labels shorten at ≤380px.
+Bottom bar, ~91px measured (navigation row + live status line, plus a subline row while a search runs) + `env(safe-area-inset-bottom)` as **padding-bottom** (targets clear the home indicator). Layout: **icon-only Back** (`←`, 44×44pt, slot reserved with `visibility:hidden` on step 1) | **bootprint stepper** | **Next / primary action**. The status line lives in the bar. Step name/number goes in the status line, never in the button row. Next labels shorten at ≤380px.
+
+### Status subline + banner
+
+- **Subline** (`#status-subline`): appears while a Find runs (and during the success cameo). Holds the non-live elapsed ticker, the **Cancel** chip, and the cairn. Hidden otherwise.
+- **Error banner** (`#status-banner`): persistent, docked above the bar, danger fill with ink outline, straight voice. `role="alert"` on insertion only; tap opens the relevant step, × dismisses. One at a time.
+
+### Cairn mascot
+
+Small inline-SVG stacked-stone character (`#cairn`, ~28px: cream/sky/sunny stones, pine outlines, tiny smile). Exactly two moments: **Find busy** — hops beside the subline ticker; **search success** — flag-planted cameo for ~1.6s, once. Never with errors, banners, failures, or safety copy (`cairnVisible()` in the status reducer enforces banner-wins; `tests/status-state.test.cjs` pins it). Static under `prefers-reduced-motion`.
 
 ### Sheet snap points
 

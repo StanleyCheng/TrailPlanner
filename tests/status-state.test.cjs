@@ -4,8 +4,8 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const source = readFileSync(join(__dirname, '../lib/status-ui.js'), 'utf8');
 const stateCode = source.split('// BEGIN STATUS STATE')[1].split('// END STATUS STATE')[0];
-const api = new Function(stateCode + '\nreturn { statusFindTicker, statusTicker, statusBarText, statusCancelVisible, statusBannerAnnounce, statusSerialActive };')();
-const { statusFindTicker, statusTicker, statusBarText, statusCancelVisible, statusBannerAnnounce, statusSerialActive } = api;
+const api = new Function(stateCode + '\nreturn { statusFindTicker, statusTicker, statusBarText, statusCancelVisible, statusBannerAnnounce, statusSerialActive, cairnVisible };')();
+const { statusFindTicker, statusTicker, statusBarText, statusCancelVisible, statusBannerAnnounce, statusSerialActive, cairnVisible } = api;
 
 const base = { banner: null, find: null, route: null, notice: null, step: 'Step 3 of 5 · Requirements', draft: null, now: 100000 };
 
@@ -69,6 +69,14 @@ test('stale serials are ignored; sites without a serial pass through', () => {
   assert.equal(statusSerialActive(4, 3), false);
   assert.equal(statusSerialActive(4, null), true);
   assert.equal(statusSerialActive(4, undefined), true);
+});
+
+test('cairn appears for find and success cameo only, and never while the error banner is visible', () => {
+  assert.equal(cairnVisible(base), false, 'idle: no cairn');
+  assert.equal(cairnVisible({ ...base, find: { milestone: 'x', startedAt: 0 } }), true, 'find busy: hopping cairn');
+  assert.equal(cairnVisible({ ...base, celebrate: true }), true, 'success cameo');
+  assert.equal(cairnVisible({ ...base, find: { milestone: 'x', startedAt: 0 }, banner: { text: 'fail' } }), false, 'banner beats find');
+  assert.equal(cairnVisible({ ...base, celebrate: true, banner: { text: 'fail' } }), false, 'banner beats cameo');
 });
 
 test('cancel affordance is visible only while a search runs', () => {
