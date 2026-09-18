@@ -11,6 +11,7 @@ const recognition = read('lib/recognition-ui.js').trim();
 const guidance = read('lib/guidance-ui.js').trim();
 const stages = read('lib/stage-ui.js').trim();
 const loupe = read('lib/loupe-ui.js').trim();
+const status = read('lib/status-ui.js').trim();
 const manifest = JSON.parse(read('site.webmanifest'));
 
 function inlineFragment(marker) {
@@ -67,6 +68,7 @@ test('single-file build embeds the authored UI fragments exactly', () => {
   assert.equal(inlineFragment('GUIDANCE UI'), guidance);
   assert.equal(inlineFragment('STAGE UI'), stages);
   assert.equal(inlineFragment('LOUPE UI'), loupe);
+  assert.equal(inlineFragment('STATUS UI'), status);
 });
 
 test('method guidance and map gestures use the existing planning controls', () => {
@@ -108,7 +110,8 @@ test('map-first route controls support colored combinations and individual or co
   assert.doesNotMatch(html, /map-pin-action/);
   assert.match(html, /map-route-action.*find-routes/);
   assert.match(html, /--dock-visible-height/);
-  assert.match(planner, /toast\(text, true, 0\)/);
+  assert.match(planner, /statusBannerShow\(text, \{ stage: 'routes' \}\)/);
+  assert.doesNotMatch(planner, /toast\(text, true, 0\)/);
 });
 
 test('route limits include the compact transport search and long-hike choices', () => {
@@ -143,6 +146,27 @@ test('trail bar exposes bootprint step navigation and a live status line', () =>
   assert.match(stages, /function stageLockedReason\(/);
   assert.match(stages, /function stageNavTarget\(/);
   assert.match(stages, /\$\('find-routes'\)\.click\(\)/);
+  assert.match(html, /id="status-banner" class="status-banner" hidden><span id="status-banner-text"><\/span><button id="status-banner-dismiss" type="button" aria-label="Dismiss message">/);
+  assert.match(html, /id="status-subline" class="status-subline" hidden><p id="status-ticker" class="status-ticker"><\/p><button id="status-cancel"/);
+  assert.match(stages, /statusSetStep\(/);
+  assert.match(stages, /statusSetNotice\(/);
+  assert.doesNotMatch(stages, /setBarStatus/);
+});
+
+test('status system centralizes live-region ownership and retires the header pill', () => {
+  assert.doesNotMatch(html, /id="map-caption"/);
+  assert.doesNotMatch(html, /id="map-count"/);
+  assert.doesNotMatch(html, /header-map-status/);
+  assert.doesNotMatch(html, /id="routing-status" class="message" role="status"/);
+  assert.doesNotMatch(html, /id="input-message" class="message" role="status"/);
+  assert.doesNotMatch(html, /id="guide-prompt" class="guide-prompt" aria-live/);
+  assert.doesNotMatch(html, /aria-live', error \? 'assertive' : 'polite'/);
+  assert.match(status, /function statusBarText\(/);
+  assert.match(status, /function statusFindTicker\(/);
+  assert.match(status, /function statusBannerShow\(/);
+  assert.match(planner, /statusFindStart\(serial, \$\('routing-status'\)\.textContent\)/);
+  assert.match(planner, /statusFindMilestone\(retryText\)/);
+  assert.match(planner, /statusSetRoute\(`Route \$\{routeNumber\} · \$\{km\(r\.metres\)\} · \$\{r\.title\} · provisional · all \$\{state\.points\.length\} mandatory places`\)/);
 });
 
 test('map data providers offer automatic transient-error fallback', () => {

@@ -10,7 +10,7 @@ assert.ok(functionSource, 'getBackendPlan can be isolated for regression testing
 
 function backendPlanner(fetcher, status = { textContent: '' }, messages = []) {
   const factory = new Function(
-    'fetch', 'AbortSignal', '$', 'toast', 'ROUTE_BACKEND_URL', 'TrailRouter',
+    'fetch', 'AbortSignal', '$', 'statusFindMilestone', 'ROUTE_BACKEND_URL', 'TrailRouter',
     `${functionSource[0].replace(/\n    function workerPlan$/, '')}; return getBackendPlan;`
   );
   return {
@@ -40,7 +40,9 @@ test('route backend retries transient browser fetch failures before accepting a 
 
   assert.deepEqual(await ui.plan(points, settings, 'auto', 'jp', new AbortController().signal), success);
   assert.equal(calls, 3);
-  assert.equal(ui.messages.length, 2);
+  assert.equal(ui.messages.length, 2, 'retries narrate via the status line milestones, not toasts');
+  assert.match(ui.messages[0], /Retrying \(2 of 3\)/);
+  assert.match(ui.messages[1], /Retrying \(3 of 3\)/);
   assert.match(ui.status.textContent, /Retrying \(3 of 3\)/);
 });
 

@@ -66,9 +66,9 @@ test('one outlined light yellow dot runs on each visible route with the exact ro
   assert.equal(harness.cancelled.length, 1);
 });
 
-test('route number and length live in the toolbar instead of covering map geometry', () => {
+test('route number and length live in the bar status line instead of covering map geometry', () => {
   assert.match(source, /dot\.append\(element\('span', String\(i \+ 1\), 'map-route-number'\), element\('small', km\(route\.metres\), 'map-route-length'\)\)/);
-  assert.match(source, /\$\('map-caption'\)\.textContent = `Route \$\{routeNumber\} · \$\{km\(r\.metres\)\}`/);
+  assert.match(source, /statusSetRoute\(`Route \$\{routeNumber\} · \$\{km\(r\.metres\)\} · \$\{r\.title\} · provisional · all \$\{state\.points\.length\} mandatory places`\)/);
   assert.doesNotMatch(source, /route-line-label/);
   assert.doesNotMatch(html, /route-line-label/);
 });
