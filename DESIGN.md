@@ -71,7 +71,7 @@ Dashed trail line with 5 alternating bootprints. Prints are 24–28px visuals in
 
 ### Loupe (pin placement)
 
-Circular ~120px magnifier floating just NW (above-left) of the pointer — clamped to the viewport, never under the finger/cursor (flips SE near the top-left corner). **CSS 2× magnification of the live map pane** — no second map instance, no extra tile requests. Crosshair marks the pin tip's ground point (the coordinate is the teardrop tip, not the icon center). Entries: press-and-hold ~200ms to place (touch, mouse, and pen) and dragging an existing pin (touch). iOS: suppress callout/selection on the map (`-webkit-touch-callout:none; user-select:none`) and `preventDefault` contextmenu during the gesture.
+Circular ~120px magnifier floating just NW (above-left) of the pointer — clamped to the viewport, never under the finger/cursor (flips SE near the top-left corner). **CSS 1.2× magnification of the live map pane** — no second map instance, no extra tile requests. Crosshair marks the pin tip's ground point (the coordinate is the teardrop tip, not the icon center); the disc is border-free (box-shadow ring) so the crosshair centre and the magnified drop point coincide exactly, and a 1.2× pin replica is rendered with its tip pinned to the crosshair centre. Entries: press-and-hold ~200ms to place (touch, mouse, and pen) and dragging an existing pin (any pointer type; loupe shows for the drag duration only). iOS: suppress callout/selection on the map (`-webkit-touch-callout:none; user-select:none`) and `preventDefault` contextmenu during the gesture.
 
 ### Status tiers (strict ownership)
 

@@ -97,7 +97,12 @@
     #pin-loupe[hidden]{display:none}
     .loupe-magnifier{position:absolute;transform:scale(1.2);transform-origin:0 0}
     .loupe-magnifier img{max-width:none!important;max-height:none!important}
-    .loupe-crosshair{position:absolute;inset:0;pointer-events:none}
+    /* Pin replica inside the loupe: its anchor (22,36 of the 44×44 icon) is pinned to the crosshair centre
+       (60,60) via transform-origin, then scaled 1.2× like the map — the visible tip IS the drop point. */
+    .loupe-pin{position:absolute;left:38px;top:24px;width:44px;height:44px;transform:scale(1.2);transform-origin:22px 36px;z-index:1;pointer-events:none;filter:drop-shadow(0 2px 3px #263e3540)}
+    .loupe-pin svg{position:absolute;left:10px;top:6px;width:24px;height:30px;fill:var(--ink);stroke:var(--white);stroke-width:2}
+    .loupe-pin span{position:absolute;left:10px;top:6px;display:grid;place-items:center;color:var(--white);height:22px;width:24px;font:700 11px var(--font)}
+    .loupe-crosshair{position:absolute;inset:0;z-index:2;pointer-events:none}
     .sticker-chip{display:inline-flex;align-items:center;gap:5px;min-height:32px;padding:4px 12px;background:var(--cream);border:var(--sticker-outline);border-radius:999px;box-shadow:2px 2px 0 var(--pine);font:600 12px/1 var(--font-display);color:var(--pine)}
     .trail-bar-shell{padding-bottom:env(safe-area-inset-bottom,0px)}
     .control-dock.snap-peek .dock-body{visibility:hidden}
@@ -269,7 +274,7 @@
       </div>
     </section>
   </main>
-  <div id="pin-loupe" hidden aria-hidden="true"><div class="loupe-magnifier"></div><svg class="loupe-crosshair" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 16v26M60 78v26M16 60h26M78 60h26" stroke="var(--pine)" stroke-width="2.5" stroke-linecap="round"/><circle cx="60" cy="60" r="4" fill="var(--accent)" stroke="var(--cream)" stroke-width="2"/></svg></div>
+  <div id="pin-loupe" hidden aria-hidden="true"><div class="loupe-magnifier"></div><div class="loupe-pin" aria-hidden="true"><svg viewBox="0 0 24 30" aria-hidden="true"><path/></svg><span></span></div><svg class="loupe-crosshair" viewBox="0 0 120 120" aria-hidden="true"><path d="M60 16v26M60 78v26M16 60h26M78 60h26" stroke="var(--pine)" stroke-width="2.5" stroke-linecap="round"/><circle cx="60" cy="60" r="4" fill="var(--accent)" stroke="var(--cream)" stroke-width="2"/></svg></div>
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
   <aside id="analytics-consent" class="consent" aria-labelledby="consent-title" hidden><h2 id="consent-title">Help improve the next hike?</h2><p>Optional Google Analytics measures visits and basic app actions. Your coordinates, files, and photos are excluded. The planner works the same either way.</p><div class="consent-actions"><button id="analytics-decline">No thanks</button><button id="analytics-accept">Allow analytics</button></div><button id="consent-close" class="text-button consent-dismiss" hidden>Keep current choice</button><span class="small" id="consent-status"></span></aside>
   <dialog id="route-details-dialog" aria-labelledby="route-details-title"><div class="route-details-heading"><h2 id="route-details-title">Route details</h2><button id="close-route-details" type="button">Close</button></div>
@@ -1533,7 +1538,12 @@
       loupeEl.style.left = Math.round(left) + 'px';
       loupeEl.style.top = Math.round(top) + 'px';
     }
-    function loupeShow(latlng) { if (!latlng || !loupeEl) return; loupeEl.hidden = false; loupeRefreshContent(); loupePlace(latlng); }
+    // The loupe renders a pin replica whose tip sits exactly on the crosshair centre — keep its number in sync.
+    function loupeSyncPinLabel() {
+      const label = loupeEl?.querySelector('.loupe-pin span'); if (!label) return;
+      label.textContent = loupeDraggedMarker?.getElement()?.querySelector('span')?.textContent || (loupeDraggedIndex >= 0 ? String(loupeDraggedIndex + 1) : '');
+    }
+    function loupeShow(latlng) { if (!latlng || !loupeEl) return; loupeSyncPinLabel(); loupeEl.hidden = false; loupeRefreshContent(); loupePlace(latlng); }
     function loupeHide() { if (loupeEl) loupeEl.hidden = true; loupeDraggedMarker = null; loupeDraggedIndex = -1; }
     function loupeApplyEffects(effects, domEvent) {
       for (const effect of effects) {
@@ -1580,6 +1590,7 @@
     function initLoupe(mapInstance) {
       if (loupeMap) return;
       loupeMap = mapInstance; loupeEl = $('pin-loupe'); loupeMag = loupeEl.querySelector('.loupe-magnifier');
+      loupeEl.querySelector('.loupe-pin path').setAttribute('d', WAYPOINT_PIN_PATH);
       const container = loupeMap.getContainer();
       container.addEventListener('pointerdown', event => {
         loupeLastPointerType = event.pointerType;
