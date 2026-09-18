@@ -68,7 +68,7 @@ test('single-file build embeds the authored UI fragments exactly', () => {
 });
 
 test('method guidance and map gestures use the existing planning controls', () => {
-  for (const id of ['guide-title', 'guide-language', 'guide-list', 'guide-action', 'guide-secondary']) assert.match(html, new RegExp(`id=["']${id}["']`));
+  for (const id of ['guide-title', 'guide-language', 'guide-list']) assert.match(html, new RegExp(`id=["']${id}["']`));
   assert.match(guidance, /function guideStateFor\(/);
   assert.match(guidance, /'zh-Hant'/);
   for (const method of ['map-pins', 'coordinates', 'text', 'gpx', 'map-image', 'image']) assert.equal(guidance.includes(method), true, `${method} guidance is authored`);
@@ -122,9 +122,25 @@ test('compact map controls expose the requested motion and alignment safely', ()
   assert.match(html, /#map-route-action\[aria-busy=true\] \.finding-dots span\{animation:find-dot \.575s ease-in-out infinite\}/);
   assert.match(html, /@keyframes find-dot\{0%,60%,100%\{transform:translateY\(1px\);opacity:\.35\}30%\{transform:translateY\(-2px\);opacity:1\}\}/);
   assert.match(html, /@keyframes find-rgb-cycle\{0%,100%\{background:#ff1744\}33\.333%\{background:#00c853\}66\.666%\{background:#1677ff\}\}/);
-  assert.match(html, /@media\(prefers-reduced-motion:reduce\)\{\.control-dock,\.dock-chevron\{transition:none\}#map-route-action\[aria-busy=true\]/);
+  assert.match(html, /@media\(prefers-reduced-motion:reduce\)\{\.control-dock\{transition:none\}#map-route-action\[aria-busy=true\]/);
   assert.match(html, /\.map-status-panel,\.map-quick-actions\{align-items:center\}/);
-  assert.match(html, /\.dock-grip::before\{content:'↓'\}\.control-dock\.collapsed \.dock-grip::before\{content:'↑'\}/);
+  assert.match(html, /\.dock-grip\{width:34px;height:4px;border-radius:4px;background:var\(--pine\)/);
+});
+
+test('trail bar exposes bootprint step navigation and a live status line', () => {
+  assert.match(html, /id="bar-status" aria-live="polite" aria-atomic="true"/);
+  assert.match(html, /class="trail-steps" role="group" aria-label="Planning steps"/);
+  assert.match(html, /id="stage-back" class="trail-back" type="button" aria-label="Back"/);
+  assert.match(html, /id="stage-next" class="trail-next sticker-btn"/);
+  assert.match(html, /id="control-dock-toggle" class="dock-toggle" type="button" aria-expanded="false"/);
+  for (const stage of ['method', 'input', 'requirements', 'routes', 'export']) assert.match(html, new RegExp(`id="stage-tab-${stage}" class="trail-step"`));
+  assert.match(html, /aria-current="step"/);
+  assert.doesNotMatch(html, /class="stage-tabs"/);
+  assert.doesNotMatch(html, /class="stage-footer"/);
+  assert.doesNotMatch(html, /id="dock-title"/);
+  assert.match(stages, /function stageLockedReason\(/);
+  assert.match(stages, /function stageNavTarget\(/);
+  assert.match(stages, /\$\('find-routes'\)\.click\(\)/);
 });
 
 test('map data providers offer automatic transient-error fallback', () => {
