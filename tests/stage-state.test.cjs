@@ -25,3 +25,33 @@ test('routing progress, failures and results remain accessible from the Routes t
   for (const state of [{ routingBusy: true }, { routingSearched: true }, { routeCount: 3 }]) assert.equal(available({ ...empty, ...state }).routes, true);
   assert.equal(available({ ...empty, pointCount: 2 }).routes, false, 'editing a draft does not retain invalid route results');
 });
+
+const nav = new Function(modelCode + '\nreturn { stageAvailability, stageLockedReason, stageNavTarget, stageNextAction };')();
+const order = ['method', 'input', 'requirements', 'routes', 'export'];
+
+test('locked stages explain their unlock condition in plain language', () => {
+  assert.equal(nav.stageLockedReason('input', empty), 'Choose how you want to add places first.');
+  assert.equal(nav.stageLockedReason('requirements', empty), 'Add at least one place first.');
+  assert.equal(nav.stageLockedReason('routes', empty), 'Set your places, then use Find.');
+  assert.equal(nav.stageLockedReason('export', empty), 'Add at least one place or file first.');
+  assert.equal(nav.stageLockedReason('method', empty), null, 'method selection is never locked');
+  assert.equal(nav.stageLockedReason('requirements', { ...empty, pointCount: 3 }), null, 'unlocked stages have no reason');
+});
+
+test('the bar primary action follows the stage, and Find belongs to Requirements', () => {
+  assert.equal(nav.stageNextAction('method'), 'continue');
+  assert.equal(nav.stageNextAction('input'), 'review');
+  assert.equal(nav.stageNextAction('requirements'), 'find');
+  assert.equal(nav.stageNextAction('routes'), 'export');
+  assert.equal(nav.stageNextAction('export'), null, 'export stage has no Next button');
+});
+
+test('back and forward navigation skip stages that are not yet available', () => {
+  const available = nav.stageAvailability({ ...empty, method: 'map-pins', pointCount: 2 });
+  assert.deepEqual(available, { method: true, input: true, requirements: true, routes: false, export: true });
+  assert.equal(nav.stageNavTarget(order, available, 'requirements', -1), 'input');
+  assert.equal(nav.stageNavTarget(order, available, 'input', -1), 'method');
+  assert.equal(nav.stageNavTarget(order, available, 'method', -1), null, 'no Back target on the first stage');
+  assert.equal(nav.stageNavTarget(order, available, 'input', 1), 'requirements');
+  assert.equal(nav.stageNavTarget(order, available, 'requirements', 1), 'export', 'forward navigation skips locked Routes');
+});

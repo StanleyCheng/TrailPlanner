@@ -58,12 +58,12 @@
     @media(max-width:380px){.plan-fields{grid-template-columns:1fr}.pill{white-space:normal;text-align:center}.brand-name{font-size:22px}.workflow-nav a{font-size:11px}}
 
     /* Map-first application shell */
-    html,body{height:100%;overflow:hidden}.topbar{position:fixed;inset:0 0 auto;z-index:1300;height:64px;background:color-mix(in srgb,var(--paper) 94%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}.topbar .shell{width:100%;max-width:none;padding-inline:max(18px,env(safe-area-inset-left,0px)) max(18px,env(safe-area-inset-right,0px))}.topbar-inner{height:64px}.brand{gap:10px}.brand-mark{width:38px;height:38px}.brand-name{font:30px/1 var(--display);letter-spacing:-.7px}.brand-subtitle,.topbar nav,.hero,.safety-strip,.workflow-nav,#approach,.footer,.guide-panel{display:none!important}main.shell{position:fixed;inset:64px 0 0;width:100%;max-width:none;margin:0}.map-section{position:absolute;inset:0;margin:0}.map-section>.section-title{display:none}.map-container{position:absolute;inset:0;border:0;border-radius:0}.map-container #map{width:100%;height:100%;min-height:0}.map-label{top:16px;left:auto;right:16px;max-width:min(330px,calc(100% - 88px));border-radius:12px;padding:9px 12px}.map-label span{display:block;margin-left:0}.number-pin span{cursor:grab}.number-pin:active span{cursor:grabbing}.direction-pin{background:var(--accent);border:2px solid var(--white);border-radius:7px;color:var(--white);display:grid!important;place-items:center;font:700 10px var(--font);box-shadow:0 2px 8px #263e3545}.leaflet-control-zoom{margin-top:16px!important}.leaflet-bottom{bottom:var(--dock-visible-height,calc(48px + env(safe-area-inset-bottom,0px)))}
-    .control-dock{position:fixed;z-index:1200;left:50%;bottom:0;transform:translateX(-50%);width:min(920px,calc(100% - 24px));max-height:min(72dvh,760px);display:flex;flex-direction:column;background:color-mix(in srgb,#f7f1dd 80%,transparent);border:1px solid var(--line);border-bottom:0;border-radius:13px 13px 0 0;box-shadow:0 -8px 28px #263e3526;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:max-height .24s ease}.control-dock.collapsed{max-height:calc(48px + env(safe-area-inset-bottom,0px));padding-bottom:env(safe-area-inset-bottom,0px)}.dock-toggle{flex:none;width:100%;min-height:48px;display:grid;grid-template-columns:20px minmax(0,1fr) 22px;gap:8px;align-items:center;text-align:left;border:0;border-radius:13px 13px 0 0;background:color-mix(in srgb,#f7f1dd 80%,transparent);padding:5px 12px}.dock-toggle:hover:not(:disabled){background:color-mix(in srgb,#e7efd9 80%,transparent)}.dock-grip{width:18px;height:3px;border-radius:4px;background:var(--line)}.dock-heading{display:block;min-width:0}.dock-heading strong{display:block;font-size:12px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dock-heading span{display:none}.dock-chevron{font-size:17px;line-height:1;text-align:center;transition:transform .2s}.control-dock.collapsed .dock-chevron{transform:rotate(180deg)}.dock-body{overflow:auto;overscroll-behavior:contain;padding:0 18px calc(20px + env(safe-area-inset-bottom,0px));scrollbar-gutter:stable}.control-dock.collapsed .dock-body{display:none}.dock-section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:18px 0 9px}.dock-section-title h2{font:22px/1.2 var(--display)}
-    #planner.workspace{display:block}.workspace>.panel{border:0;border-radius:0;overflow:visible;background:transparent}.workspace>.panel>.panel-heading{display:none}.workspace>.panel>.panel-body{padding:6px 0 12px}.workspace #input-method{background:var(--soft);font-weight:600}.map-pin-panel{padding:14px 0 2px}.map-pin-panel p{font-size:13px;color:var(--muted);margin-bottom:12px}.map-pin-panel .pin-instructions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 14px;padding:0;list-style:none;counter-reset:pin-steps}.map-pin-panel .pin-instructions li{position:relative;padding:10px 10px 10px 34px;border:1px solid var(--line);border-radius:8px;background:var(--paper);font-size:11px}.map-pin-panel .pin-instructions li::before{counter-increment:pin-steps;content:counter(pin-steps);position:absolute;left:10px;top:9px;display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--ink);color:#fff;font-size:10px}.pin-actions{display:flex;gap:8px;flex-wrap:wrap}.pin-actions button{flex:1}.pin-help{font-size:11px!important;margin-top:9px!important}
-    #ai-review,#image-converter,#route-builder,#route-results,.dock-map-controls{margin:14px 0 0}.control-dock .panel{box-shadow:none}.control-dock .panel-heading{padding:16px 18px 10px}.control-dock .panel-body{padding:0 18px 18px}.control-dock #route-builder[hidden],.control-dock #route-results[hidden],.control-dock .dock-map-controls[hidden]{display:none!important}.route-builder .plan-fields{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:12px}.route-options{--route-card-width:47%;overflow-x:auto;overscroll-behavior-x:contain;padding:2px 2px 8px;scroll-padding-inline:2px;scroll-snap-type:x proximity}.route-choice{flex:0 0 var(--route-card-width);scroll-snap-align:start}.route-choice:only-child{flex-basis:100%}.route-visibility-controls{margin:14px 0;padding:14px;border:1px solid var(--line);border-radius:9px;background:var(--soft)}.route-visibility-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}.route-visibility-head strong{font-size:13px}.route-visibility{display:flex;flex-wrap:wrap;gap:8px}.route-toggle{--route-color:var(--ink);border-color:var(--route-color);background:var(--white)}.route-toggle::before{content:'';width:11px;height:11px;border-radius:50%;background:var(--route-color)}.route-toggle[aria-pressed=true]{background:var(--route-color);color:#fff}.route-toggle[aria-pressed=true]::before{background:#fff}.route-visibility-actions{display:flex;gap:6px}.route-visibility-actions button{padding:6px 9px;min-height:36px;font-size:11px}.dock-map-controls{border-top:1px solid var(--line);padding-top:14px}.dock-map-controls .map-actions,.dock-map-controls .map-tools,.dock-map-controls .export-actions{display:flex;flex-wrap:wrap;gap:8px}.dock-map-controls .map-bottom{display:block;padding:12px 0;border:0}.dock-map-controls .map-tools{margin-top:10px}.dock-map-controls .map-footer{padding-top:10px}.dock-map-controls .export-actions{width:100%}.dock-map-controls .export-actions button{flex:1}.dock-map-controls .export-note{max-width:none}.dock-map-controls .download-ready{margin-top:12px}.direction-summary{margin-top:6px}.routes-empty{padding:18px}.selected-route-detail{padding:16px}.analytics-consent-open .control-dock{visibility:hidden}.consent{z-index:2000}
-    @media(max-width:720px){.topbar{height:58px}.topbar-inner{height:58px}.topbar .shell{padding-inline:max(12px,env(safe-area-inset-left,0px)) max(12px,env(safe-area-inset-right,0px))}.brand-mark{width:34px;height:34px}.brand-name{font-size:27px}main.shell{inset:58px 0 0}.map-label{top:12px;right:10px;max-width:calc(100% - 74px);font-size:11px}.leaflet-control-zoom{margin-top:12px!important;margin-left:10px!important}.leaflet-bottom{bottom:var(--dock-visible-height,calc(46px + env(safe-area-inset-bottom,0px)))}.control-dock{width:100%;max-height:min(70dvh,680px);border-inline:0}.control-dock.collapsed{max-height:calc(46px + env(safe-area-inset-bottom,0px))}.dock-toggle{min-height:46px;padding:4px 10px}.dock-body{padding-inline:14px}.map-pin-panel .pin-instructions{grid-template-columns:1fr}.route-builder .plan-fields{grid-template-columns:1fr}.route-options{--route-card-width:88%}.control-dock .panel-heading{padding-inline:14px}.control-dock .panel-body{padding-inline:14px}.dock-map-controls .export-actions{display:grid;grid-template-columns:1fr 1fr}.dock-map-controls .export-actions button{min-width:0}.dock-map-controls .export-actions #discard{grid-column:1/-1}.route-visibility-head{align-items:flex-start;flex-direction:column}.map-actions button,.map-tools button{flex:1}.toast{bottom:calc(58px + env(safe-area-inset-bottom,0px));z-index:1800}}
-    @media(max-width:380px){.brand-name{font-size:25px}.dock-heading strong{font-size:11px}.dock-body{padding-inline:10px}.control-dock .panel-body{padding-inline:10px}.route-options{--route-card-width:92%}}
+    html,body{height:100%;overflow:hidden}.topbar{position:fixed;inset:0 0 auto;z-index:1300;height:64px;background:color-mix(in srgb,var(--paper) 94%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}.topbar .shell{width:100%;max-width:none;padding-inline:max(18px,env(safe-area-inset-left,0px)) max(18px,env(safe-area-inset-right,0px))}.topbar-inner{height:64px}.brand{gap:10px}.brand-mark{width:38px;height:38px}.brand-name{font:30px/1 var(--display);letter-spacing:-.7px}.brand-subtitle,.topbar nav,.hero,.safety-strip,.workflow-nav,#approach,.footer{display:none!important}main.shell{position:fixed;inset:64px 0 0;width:100%;max-width:none;margin:0}.map-section{position:absolute;inset:0;margin:0}.map-section>.section-title{display:none}.map-container{position:absolute;inset:0;border:0;border-radius:0}.map-container #map{width:100%;height:100%;min-height:0}.map-label{top:16px;left:auto;right:16px;max-width:min(330px,calc(100% - 88px));border-radius:12px;padding:9px 12px}.map-label span{display:block;margin-left:0}.number-pin span{cursor:grab}.number-pin:active span{cursor:grabbing}.direction-pin{background:var(--accent);border:2px solid var(--white);border-radius:7px;color:var(--white);display:grid!important;place-items:center;font:700 10px var(--font);box-shadow:0 2px 8px #263e3545}.leaflet-control-zoom{margin-top:16px!important}.leaflet-bottom{bottom:var(--dock-visible-height,calc(48px + env(safe-area-inset-bottom,0px)))}
+    .control-dock{position:fixed;z-index:1200;left:50%;bottom:0;transform:translate(-50%,calc(100% - 130px));width:min(560px,100%);height:88dvh;display:flex;flex-direction:column;background:var(--cream);border:var(--sticker-outline);border-bottom:0;border-radius:16px 16px 0 0;box-shadow:0 -8px 28px #263e3526;transition:transform .24s ease}.control-dock.dragging{transition:none}.dock-toggle{flex:none;width:100%;height:24px;display:grid;place-items:center;border:0;border-radius:16px 16px 0 0;background:transparent;padding:0;cursor:grab;touch-action:none}.dock-toggle:active{cursor:grabbing}.trail-bar{flex:none;display:flex;align-items:center;gap:4px;padding:0 8px}.trail-back{flex:none;width:44px;height:44px;border:0;background:transparent;border-radius:12px;color:var(--pine);font:600 20px/1 var(--font-display);cursor:pointer}.trail-back:hover{background:color-mix(in srgb,var(--sunny) 40%,transparent)}.trail-steps{flex:1;position:relative;display:flex;justify-content:center;align-items:center}.trail-steps::before{content:'';position:absolute;left:20px;right:20px;top:50%;border-top:2px dashed var(--muted);opacity:.45}.trail-step{position:relative;width:40px;height:44px;display:grid;place-items:center;border:0;background:transparent;padding:0;cursor:pointer}.trail-step .bootprint{width:24px;height:26px;fill:var(--cream);stroke:var(--pine);stroke-width:1.6}.trail-step:nth-child(odd) .bootprint{transform:rotate(-9deg)}.trail-step:nth-child(even) .bootprint{transform:rotate(9deg) translateY(2px)}.trail-step.done .bootprint{fill:var(--trail-green)}.trail-step[aria-current="step"] .bootprint{fill:var(--sunny)}.trail-step.locked .bootprint{fill:var(--soft);stroke:var(--muted);opacity:.65}.trail-step .step-flag{display:none;position:absolute;top:-3px;left:50%;translate:-50% 0;width:14px;height:16px;color:var(--accent)}.trail-step[aria-current="step"] .step-flag{display:block;animation:step-flag-bob 1.2s ease-in-out infinite}@keyframes step-flag-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}.trail-next{flex:none;padding:8px 12px;font-size:13px;white-space:nowrap;background:var(--sunny)}.trail-step:focus-visible,.trail-back:focus-visible,.trail-next:focus-visible,.dock-toggle:focus-visible{outline:2px solid var(--pine);outline-offset:2px}#bar-status{flex:none;margin:0;padding:1px 12px calc(4px + env(safe-area-inset-bottom,0px));font:500 12px/18px var(--font);color:var(--muted);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dock-body{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;touch-action:pan-y;padding:0 16px 16px;scrollbar-gutter:stable}.dock-section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:18px 0 9px}.dock-section-title h2{font:22px/1.2 var(--display)}
+    #planner.workspace{display:block}.workspace>.panel{border:0;border-radius:0;overflow:visible;background:transparent}.workspace>.panel>.panel-body{padding:6px 0 12px}.workspace #input-method{background:var(--soft);font-weight:600}.map-pin-panel{padding:14px 0 2px}.map-pin-panel p{font-size:13px;color:var(--muted);margin-bottom:12px}.map-pin-panel .pin-instructions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 14px;padding:0;list-style:none;counter-reset:pin-steps}.map-pin-panel .pin-instructions li{position:relative;padding:10px 10px 10px 34px;border:1px solid var(--line);border-radius:8px;background:var(--paper);font-size:11px}.map-pin-panel .pin-instructions li::before{counter-increment:pin-steps;content:counter(pin-steps);position:absolute;left:10px;top:9px;display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--ink);color:#fff;font-size:10px}.pin-actions{display:flex;gap:8px;flex-wrap:wrap}.pin-actions button{flex:1}.pin-help{font-size:11px!important;margin-top:9px!important}
+    #ai-review,#image-converter,#route-builder,#route-results,.dock-map-controls{margin:14px 0 0}.control-dock .panel{box-shadow:none}.control-dock .panel-heading{padding:16px 18px 10px}.control-dock .panel-body{padding:0 18px 18px}.control-dock #route-builder[hidden],.control-dock #route-results[hidden],.control-dock .dock-map-controls[hidden]{display:none!important}.route-builder .plan-fields{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:12px}.route-options{--route-card-width:47%;overflow-x:auto;overscroll-behavior-x:contain;touch-action:pan-x pan-y;padding:2px 2px 8px;scroll-padding-inline:2px;scroll-snap-type:x proximity}.route-choice{flex:0 0 var(--route-card-width);scroll-snap-align:start}.route-choice:only-child{flex-basis:100%}.route-visibility-controls{margin:14px 0;padding:14px;border:1px solid var(--line);border-radius:9px;background:var(--soft)}.route-visibility-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}.route-visibility-head strong{font-size:13px}.route-visibility{display:flex;flex-wrap:wrap;gap:8px}.route-toggle{--route-color:var(--ink);border-color:var(--route-color);background:var(--white)}.route-toggle::before{content:'';width:11px;height:11px;border-radius:50%;background:var(--route-color)}.route-toggle[aria-pressed=true]{background:var(--route-color);color:#fff}.route-toggle[aria-pressed=true]::before{background:#fff}.route-visibility-actions{display:flex;gap:6px}.route-visibility-actions button{padding:6px 9px;min-height:36px;font-size:11px}.dock-map-controls{border-top:1px solid var(--line);padding-top:14px}.dock-map-controls .map-actions,.dock-map-controls .map-tools,.dock-map-controls .export-actions{display:flex;flex-wrap:wrap;gap:8px}.dock-map-controls .map-bottom{display:block;padding:12px 0;border:0}.dock-map-controls .map-tools{margin-top:10px}.dock-map-controls .map-footer{padding-top:10px}.dock-map-controls .export-actions{width:100%}.dock-map-controls .export-actions button{flex:1}.dock-map-controls .export-note{max-width:none}.dock-map-controls .download-ready{margin-top:12px}.direction-summary{margin-top:6px}.routes-empty{padding:18px}.selected-route-detail{padding:16px}.analytics-consent-open .control-dock{visibility:hidden}.consent{z-index:2000}
+    @media(max-width:720px){.topbar{height:58px}.topbar-inner{height:58px}.topbar .shell{padding-inline:max(12px,env(safe-area-inset-left,0px)) max(12px,env(safe-area-inset-right,0px))}.brand-mark{width:34px;height:34px}.brand-name{font-size:27px}main.shell{inset:58px 0 0}.map-label{top:12px;right:10px;max-width:calc(100% - 74px);font-size:11px}.leaflet-control-zoom{margin-top:12px!important;margin-left:10px!important}.leaflet-bottom{bottom:var(--dock-visible-height,calc(46px + env(safe-area-inset-bottom,0px)))}.control-dock{width:100%;border-inline:0}.dock-body{padding-inline:14px}.map-pin-panel .pin-instructions{grid-template-columns:1fr}.route-builder .plan-fields{grid-template-columns:1fr}.route-options{--route-card-width:88%}.control-dock .panel-heading{padding-inline:14px}.control-dock .panel-body{padding-inline:14px}.dock-map-controls .export-actions{display:grid;grid-template-columns:1fr 1fr}.dock-map-controls .export-actions button{min-width:0}.dock-map-controls .export-actions #discard{grid-column:1/-1}.route-visibility-head{align-items:flex-start;flex-direction:column}.map-actions button,.map-tools button{flex:1}.toast{bottom:calc(58px + env(safe-area-inset-bottom,0px));z-index:1800}}
+    @media(max-width:380px){.brand-name{font-size:25px}.dock-body{padding-inline:10px}.control-dock .panel-body{padding-inline:10px}.route-options{--route-card-width:92%}}
     .map-status-panel{position:absolute;z-index:500;top:16px;right:16px;display:flex;max-width:calc(100% - 88px);flex-direction:column;align-items:flex-end;gap:7px}.header-map-status{position:static;width:max-content;max-width:100%;border-radius:12px;padding:8px 11px;background:color-mix(in srgb,#fff3cf 80%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}.header-map-status span{display:block;margin-left:0}.map-quick-actions{display:flex;flex-direction:column;align-items:flex-end;gap:7px}.map-quick-actions button{width:max-content;min-height:44px;padding:7px 11px;border-color:#b8c1b7;box-shadow:var(--shadow);font-size:12px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#map-route-action{background:color-mix(in srgb,#dcefdc 80%,transparent)}.map-quick-actions button[aria-pressed=true]{background:color-mix(in srgb,#f1c9b8 80%,transparent);border-color:var(--accent);color:var(--ink)}.map-route-toolbar{display:flex;flex-direction:column;align-items:center;gap:5px;width:max-content;padding:5px;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,#e9e2f4 80%,transparent);box-shadow:var(--shadow);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}.map-route-toolbar strong{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.map-route-dots{display:grid;gap:5px}.map-route-dot{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:44px;min-height:49px;padding:0;border:0;background:transparent;box-shadow:none;font-size:12px}.map-route-number{display:grid;width:34px;height:34px;place-items:center;border:2px solid color-mix(in srgb,#fff 80%,transparent);border-radius:50%;background:color-mix(in srgb,var(--route-color) 72%,white);color:#fff;box-shadow:0 0 0 1px var(--route-color),var(--shadow)}.map-route-length{color:var(--ink);font-size:9px;line-height:1;white-space:nowrap}.map-route-dot[aria-pressed=false]{opacity:.72}.map-route-dot[aria-pressed=false] .map-route-number{background:color-mix(in srgb,#fff 80%,transparent);color:var(--route-color)}.map-export-action{width:max-content;padding:6px;min-height:38px;background:color-mix(in srgb,#dceaf4 80%,transparent);font-size:10px;line-height:1.15}.route-endpoint-pin{background:transparent;border:0}.route-endpoint-pin span{display:grid;width:24px;height:24px;place-items:center;border:3px solid var(--white);border-radius:50%;color:var(--white);font:700 11px var(--font);box-shadow:0 2px 8px #263e3566}.toast{bottom:calc(var(--dock-visible-height,48px) + 12px);width:min(520px,calc(100% - 32px));text-align:center}.toast{max-height:min(30dvh,200px,calc(100dvh - var(--dock-visible-height,48px) - 88px));overflow-y:auto}.toast.error{background:var(--danger);border-color:#fff}
     @media(max-width:720px){.map-status-panel{top:12px;right:10px;max-width:calc(100% - 74px);gap:6px}.header-map-status{padding:7px 9px;font-size:11px}.map-quick-actions{gap:6px}.map-quick-actions button{min-height:44px;padding:6px 9px;font-size:11px}.map-route-toolbar{gap:4px;padding:4px}.map-route-dots{gap:4px}.map-route-dot{width:42px;min-height:47px}.map-route-number{width:32px;height:32px}.map-export-action{min-height:36px;padding:5px}.toast{bottom:calc(var(--dock-visible-height,46px) + 10px)}}
 
@@ -71,17 +71,12 @@
     /* Compact stage controls: content stays mounted when changing tabs. */
     :root{--stage-mint:color-mix(in srgb,#d9efe4 80%,transparent);--stage-sand:color-mix(in srgb,#f7f1dd 80%,transparent);--stage-selected:var(--ink)}
     .topbar-inner{gap:12px;justify-content:space-between}.brand{flex-shrink:0}.header-map-status{flex:0 1 auto;min-width:0;max-width:46%;font-size:11px;line-height:1.4;text-align:right;padding:6px 10px;border:1px solid var(--line)}.header-map-status strong,.header-map-status span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.map-status-panel{top:10px}
-    .control-dock{width:min(760px,calc(100% - 24px))}.dock-content{display:flex;flex-direction:column;min-height:0}.dock-body{padding:12px 18px 6px;min-height:0;scrollbar-gutter:auto}.dock-toggle{display:flex;justify-content:center;position:relative;min-height:44px;padding:5px 12px}.dock-heading{display:none}.dock-grip{width:34px;height:4px;background:var(--muted);opacity:.45}.dock-chevron{position:absolute;right:14px}.control-dock.collapsed{width:92px;max-height:calc(44px + env(safe-area-inset-bottom,0px));border-radius:14px 14px 0 0}.control-dock.collapsed .dock-content,.control-dock.collapsed .dock-chevron{display:none}.control-dock.collapsed .dock-toggle{min-height:44px}
-    .stage-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;flex:none;padding:0 12px 9px;border-bottom:1px solid var(--line)}.stage-tabs button{display:flex;flex-direction:column;gap:4px;min-width:0;min-height:52px;padding:6px 2px;border:0;border-radius:8px;background:transparent;font-size:11px;line-height:1.25}.stage-tabs button[aria-selected=true]{background:var(--stage-mint);color:var(--stage-selected)}.stage-tabs button:disabled{opacity:.45}.stage-number{display:grid;place-items:center;width:18px;height:18px;border:1px solid var(--line);border-radius:50%;font-size:10px}.stage-tabs button[aria-selected=true] .stage-number{background:var(--ink);border-color:var(--ink);color:var(--white)}.stage-panel{min-width:0}.stage-panel>h2{display:none}.stage-footer{display:flex;justify-content:space-between;gap:10px;padding:10px 18px calc(12px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);flex:none}.stage-footer button{font-size:12px}.stage-footer #stage-next{margin-left:auto}
-    .control-dock .help,.control-dock .stage-intro,.control-dock .pin-help,.control-dock .pin-instructions,.control-dock .review-notice,.control-dock .converter-intro,.control-dock .map-guidance,.control-dock .export-note,.control-dock .direction-summary,.control-dock .routes-empty,.control-dock .message,#next-action,.map-pin-panel>p,#photo-status,#trace-message,#ai-upload-notice{display:none!important}.control-dock .panel-heading,.control-dock #route-results>.section-title,.control-dock .dock-section-title>h2{display:none}.control-dock #file-panel>p,.control-dock #image-review>p,.control-dock #paste-controls>p,.control-dock #download-ready p,.control-dock #trace-review>p{display:none}.control-dock #ai-questions{display:none!important}.control-dock #upload-help{display:none}.control-dock .map-pin-panel{padding:4px 0}.control-dock #coordinates-panel .field-top{margin-top:4px}.control-dock .panel-body{padding:8px 0}.control-dock #route-builder{border:0;background:transparent;margin:0}.control-dock .plan-fields{margin-top:0;gap:12px}.control-dock .build-actions{margin-top:12px}.control-dock .upload-area{min-height:0;margin-top:0;padding:12px}.control-dock .upload-area>svg{display:none}.control-dock .upload-area>strong{margin-bottom:8px}.control-dock .paste-controls{margin-top:8px}.control-dock #ai-review{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;margin-top:12px}.control-dock #manual-trace-tools{margin-top:12px}.control-dock #manual-trace-tools>summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-size:12px;font-weight:600}.control-dock #image-converter{margin:0}.control-dock #route-results{margin:0}.control-dock .route-visibility-controls{margin:0 0 12px;padding:10px}.control-dock .dock-map-controls{border:0;padding:0;margin:0}.control-dock .dock-section-title{margin:0 0 8px}.control-dock .map-footer{border:0;padding-top:8px}.control-dock #privacy-settings{display:block;margin-top:8px;min-height:36px}.control-dock .pin-actions{margin:0}.control-dock .pin-actions button{width:100%}
+    .dock-content{flex:1;display:flex;flex-direction:column;min-height:0}
+    .stage-panel{min-width:0}
+    .control-dock .message,#photo-status,#trace-message,.control-dock #ai-questions{display:none!important}.control-dock #route-results>.section-title{display:none}.control-dock #download-ready p{display:none}.control-dock .map-pin-panel{padding:4px 0}.control-dock #coordinates-panel .field-top{margin-top:4px}.control-dock .panel-body{padding:8px 0}.control-dock #route-builder{border:0;background:transparent;margin:0}.control-dock .plan-fields{margin-top:0;gap:12px}.control-dock .build-actions{margin-top:12px}.control-dock .upload-area{min-height:0;margin-top:0;padding:12px}.control-dock .upload-area>svg{display:none}.control-dock .upload-area>strong{margin-bottom:8px}.control-dock .paste-controls{margin-top:8px}.control-dock #ai-review{background:transparent;border:0;border-top:1px solid var(--line);border-radius:0;margin-top:12px}.control-dock #manual-trace-tools{margin-top:12px}.control-dock #manual-trace-tools>summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-size:12px;font-weight:600}.control-dock #image-converter{margin:0}.control-dock #route-results{margin:0}.control-dock .route-visibility-controls{margin:0 0 12px;padding:10px}.control-dock .dock-map-controls{border:0;padding:0;margin:0}.control-dock .dock-section-title{margin:0 0 8px}.control-dock .map-footer{border:0;padding-top:8px}.control-dock #privacy-settings{display:block;margin-top:8px;min-height:36px}.control-dock .pin-actions{margin:0}.control-dock .pin-actions button{width:100%}
     #route-details-dialog{max-width:760px}.route-details-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}.route-details-heading h2{font-size:25px}#route-details-dialog .selected-route-detail{padding:0;border:0}#route-details-dialog .route-export-review{margin-top:16px}
-    @media(max-width:720px){.control-dock{width:100%}.header-map-status{max-width:48%;font-size:10px;padding:5px 7px}.topbar-inner{gap:8px}.map-status-panel{top:10px}.dock-body{padding-inline:14px}.stage-footer{padding-inline:14px}.stage-tabs{padding-inline:10px;gap:2px}.stage-tabs button{font-size:10px}.control-dock input,.control-dock select,.control-dock textarea{font-size:16px}.control-dock input[type=date]{min-width:0}.control-dock .map-tools{margin-top:0}.control-dock .map-bottom{padding:0}}
-    @media(max-width:380px){.brand-name{font-size:23px}.brand-mark{width:29px;height:29px}.brand{gap:6px}.header-map-status{font-size:9px}.stage-tabs{padding-inline:5px}.stage-tabs button{font-size:9px}.dock-body{padding-inline:12px}}
-    @media(max-width:720px),(pointer:coarse) and (max-height:500px){
-      .control-dock.collapsed{bottom:0;height:22px;max-height:22px;padding-bottom:0;border-radius:10px 10px 0 0}
-      .control-dock.collapsed .dock-toggle{height:100%;min-height:0;padding:0 12px;border-radius:10px 10px 0 0}
-      .control-dock.collapsed .dock-toggle::before{content:'';position:absolute;left:0;right:0;bottom:0;height:44px}
-    }
+    @media(max-width:720px){.control-dock{width:100%}.header-map-status{max-width:48%;font-size:10px;padding:5px 7px}.topbar-inner{gap:8px}.map-status-panel{top:10px}.dock-body{padding-inline:14px}.control-dock input,.control-dock select,.control-dock textarea{font-size:16px}.control-dock input[type=date]{min-width:0}.control-dock .map-tools{margin-top:0}.control-dock .map-bottom{padding:0}}
+    @media(max-width:380px){.brand-name{font-size:23px}.brand-mark{width:29px;height:29px}.brand{gap:6px}.header-map-status{font-size:9px}.dock-body{padding-inline:12px}}
     #map-markers-action[aria-pressed=true]{background:color-mix(in srgb,#dcefdc 80%,transparent);color:var(--ink)}#map-markers-action[aria-pressed=false]{background:var(--soft);color:var(--muted);border-style:dashed}
     .map-status-panel,.map-quick-actions{align-items:center}
     #map-route-action{width:46px;height:46px;min-width:46px;min-height:46px;padding:0;border:1px solid #1b211e;border-radius:50%;background:#bfe3bd;color:#17231e;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;opacity:1!important}
@@ -89,7 +84,7 @@
     .finding-dots{display:none;height:7px;align-items:center;justify-content:center;gap:2px}.finding-dots span{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.35}.finding-dots span:nth-child(2){animation-delay:.08s}.finding-dots span:nth-child(3){animation-delay:.16s}#map-route-action[aria-busy=true] .find-label{line-height:1}#map-route-action[aria-busy=true] .finding-dots{display:flex}#map-route-action[aria-busy=true] .finding-dots span{animation:find-dot .575s ease-in-out infinite}
     @keyframes find-rgb-cycle{0%,100%{background:#ff1744}33.333%{background:#00c853}66.666%{background:#1677ff}}
     @keyframes find-dot{0%,60%,100%{transform:translateY(1px);opacity:.35}30%{transform:translateY(-2px);opacity:1}}
-    .dock-grip{display:grid;place-items:center;width:20px;height:20px;background:none!important;opacity:1!important;color:var(--ink);font:700 13px/1 var(--font)}.dock-grip::before{content:'↓'}.control-dock.collapsed .dock-grip::before{content:'↑'}.dock-chevron{display:none!important}
+    .dock-grip{width:34px;height:4px;border-radius:4px;background:var(--pine);opacity:.45}
     .plan-loop-field{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:47px;padding:0 10px;border:1px solid var(--line);border-radius:7px;background:var(--soft);font-size:12px;font-weight:600;align-self:end}
     .plan-switch{display:flex;align-items:center;gap:8px;min-height:44px;padding:4px 0;border:0;background:transparent;font-size:12px;box-shadow:none}.switch-track{position:relative;width:36px;height:22px;border-radius:12px;background:var(--muted)}.switch-track::after{content:'';position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:var(--white)}.plan-switch[aria-checked=true] .switch-track{background:var(--ink)}.plan-switch[aria-checked=true] .switch-track::after{transform:translateX(14px)}.switch-state{min-width:22px}
     .map-difficulty-control{display:flex;flex-direction:column;align-items:center;gap:2px;padding-top:5px;border-top:1px solid var(--line);font-size:10px;font-weight:600}.map-difficulty-control .plan-switch{flex-direction:column;gap:2px;min-height:44px;font-size:10px}.difficulty-key::before{content:"";display:inline-block;width:16px;margin-right:5px;border-top:4px solid var(--difficulty-color);vertical-align:middle}.route-difficulty-legend .difficulty-key{display:inline-block;margin-right:8px}.plan-terrain-field{grid-column:1/-1;padding-block:6px}.plan-terrain-field small{display:block;max-width:44ch;margin-top:3px;font-size:11px;font-weight:400;line-height:1.4;color:var(--muted)}.terrain-warning{color:#b00000;font-weight:600}.route-difficulty-legend{position:absolute;z-index:500;left:58px;top:14px;max-width:calc(100% - 170px);padding:7px 10px;border:1px solid var(--line);border-radius:7px;background:#fffefa;color:var(--ink);font-size:12px;font-weight:600;box-shadow:var(--shadow)}
@@ -97,7 +92,7 @@
     .sticker{background:var(--cream);border:var(--sticker-outline);border-radius:var(--radius-sticker);box-shadow:var(--shadow-sticker)}
     .sticker-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:8px 16px;background:var(--cream);border:var(--sticker-outline);border-radius:var(--radius-sticker);box-shadow:var(--shadow-sticker);font:600 14px/1.2 var(--font-display);color:var(--pine);cursor:pointer;transition:transform .12s ease,box-shadow .12s ease}.sticker-btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--pine)}
     .sticker-chip{display:inline-flex;align-items:center;gap:5px;min-height:32px;padding:4px 12px;background:var(--cream);border:var(--sticker-outline);border-radius:999px;box-shadow:2px 2px 0 var(--pine);font:600 12px/1 var(--font-display);color:var(--pine)}
-    @media(prefers-reduced-motion:reduce){.control-dock,.dock-chevron{transition:none}#map-route-action[aria-busy=true],#map-route-action[aria-busy=true] .finding-dots span{animation:none;background:#bfe3bd;transform:none;opacity:1}.sticker-btn{transition:none}}
+    @media(prefers-reduced-motion:reduce){.control-dock{transition:none}#map-route-action[aria-busy=true],#map-route-action[aria-busy=true] .finding-dots span{animation:none;background:#bfe3bd;transform:none;opacity:1}.sticker-btn{transition:none}.trail-step .step-flag{animation:none}html{scroll-behavior:auto}}
   </style>
 </head>
 <body class="map-first">
@@ -111,25 +106,32 @@
     <section class="map-section" aria-labelledby="map-title"><h1 id="map-title" class="skip">Planning map</h1>
       <div id="map-capture" class="map-container"><div id="map" aria-label="Interactive map for reviewing and editing waypoint locations" aria-describedby="map-gesture-note"></div><div id="route-difficulty-legend" class="route-difficulty-legend" role="status" hidden><span class="difficulty-key" style="--difficulty-color:#13834b">Normal</span><span class="difficulty-key" style="--difficulty-color:#e34e9b">Demanding</span><span class="difficulty-key" style="--difficulty-color:#d00000">Difficult</span></div><div class="map-status-panel"><div class="map-quick-actions" aria-label="Map planning shortcuts"><button id="map-route-action" type="button" aria-label="Find routes" aria-busy="false" disabled><span class="find-label">Find</span><span class="finding-dots" aria-hidden="true"><span></span><span></span><span></span></span></button></div><aside id="map-route-toolbar" class="map-route-toolbar" aria-label="Routes shown on map" hidden><strong>Routes</strong><div id="map-route-dots" class="map-route-dots"></div><div id="route-difficulty-control" class="map-difficulty-control" hidden><span id="route-difficulty-label">Difficulty</span><button id="route-difficulty-colors" class="plan-switch" type="button" role="switch" aria-checked="false" aria-label="Color by difficulty" aria-describedby="route-difficulty-note" title="Green: normal; pink: demanding; red: difficult/alpine"><span class="switch-track" aria-hidden="true"></span><span class="switch-state" aria-hidden="true">Off</span></button><span id="route-difficulty-note" hidden>Green: normal walking, including untagged paths and strolling / hiking (T1). Pink: more demanding hiking (T2–T3). Red: difficult / alpine (T4–T6). Changes colors immediately without recalculating routes.</span></div><div id="route-run-control" class="map-difficulty-control" hidden><span id="route-run-label">Run</span><button id="route-run" class="plan-switch" type="button" role="switch" aria-checked="false" aria-labelledby="route-run-label" aria-describedby="route-run-note" title="Animate the direction of every visible route"><span class="switch-track" aria-hidden="true"></span><span class="switch-state" aria-hidden="true">Off</span></button><span id="route-run-note" hidden>A small light yellow dot follows each visible route from start to finish. This changes only the map display.</span></div><button id="map-markers-action" class="map-export-action" type="button" aria-pressed="true" aria-label="Hide waypoint pins and start/finish markers" title="Hide pins and start/finish points">Pins</button><button id="map-export-action" class="map-export-action" type="button" aria-label="Export shown routes as GPX" disabled>Export</button></aside></div></div>
     </section>
-    <section id="control-dock" class="control-dock collapsed" aria-label="Route planning controls">
-      <button id="control-dock-toggle" class="dock-toggle" type="button" aria-expanded="false" aria-controls="control-dock-content" aria-label="Open planning controls"><span class="dock-grip" aria-hidden="true"></span><span class="dock-heading"><strong id="dock-title">Add your waypoints</strong><span id="dock-summary">Choose how you want to add places</span></span><span class="dock-chevron" aria-hidden="true">⌄</span></button>
-      <div id="control-dock-content" class="dock-content">
-        <div class="stage-tabs" role="tablist" aria-label="Route planning stages">
-          <button id="stage-tab-method" type="button" role="tab" data-stage="method" aria-controls="stage-method" aria-selected="true" tabindex="0"><span class="stage-number" aria-hidden="true">1</span><span>Adding Pins</span></button>
-          <button id="stage-tab-input" type="button" role="tab" data-stage="input" aria-controls="stage-input" aria-selected="false" tabindex="-1" disabled><span class="stage-number" aria-hidden="true">2</span><span>Add Points</span></button>
-          <button id="stage-tab-requirements" type="button" role="tab" data-stage="requirements" aria-controls="stage-requirements" aria-selected="false" tabindex="-1" disabled><span class="stage-number" aria-hidden="true">3</span><span>Requirements</span></button>
-          <button id="stage-tab-routes" type="button" role="tab" data-stage="routes" aria-controls="stage-routes" aria-selected="false" tabindex="-1" disabled><span class="stage-number" aria-hidden="true">4</span><span>Routes</span></button>
-          <button id="stage-tab-export" type="button" role="tab" data-stage="export" aria-controls="stage-export" aria-selected="false" tabindex="-1" disabled><span class="stage-number" aria-hidden="true">5</span><span>Export</span></button>
+    <section id="control-dock" class="control-dock" aria-label="Route planning controls">
+      <div id="trail-bar-shell" class="trail-bar-shell">
+        <button id="control-dock-toggle" class="dock-toggle" type="button" aria-expanded="false" aria-controls="control-dock-content" aria-label="Open planning controls"><span class="dock-grip" aria-hidden="true"></span></button>
+        <div class="trail-bar">
+          <button id="stage-back" class="trail-back" type="button" aria-label="Back">←</button>
+          <div class="trail-steps" role="group" aria-label="Planning steps">
+            <button id="stage-tab-method" class="trail-step" type="button" data-stage="method" aria-current="step" aria-label="Step 1 · Adding Pins"><svg class="step-flag" viewBox="0 0 16 18" aria-hidden="true"><path d="M3 1v16M3 2h10l-3 3.5L13 9H3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><svg class="bootprint" viewBox="0 0 24 26" aria-hidden="true"><path d="M12 1.5c3.4 0 5.4 2.7 5.4 6s-2 5.6-5.4 5.6-5.4-2.3-5.4-5.6 2-6 5.4-6Zm-3.1 14h6.2c1 1.8 1.1 3.7-.1 5.3-1.1 1.5-4.9 1.5-6 0-1.2-1.6-1.1-3.5-.1-5.3Z"/></svg></button>
+            <button id="stage-tab-input" class="trail-step" type="button" data-stage="input" tabindex="-1" aria-disabled="true" aria-label="Step 2 · Add Points · locked"><svg class="step-flag" viewBox="0 0 16 18" aria-hidden="true"><path d="M3 1v16M3 2h10l-3 3.5L13 9H3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><svg class="bootprint" viewBox="0 0 24 26" aria-hidden="true"><path d="M12 1.5c3.4 0 5.4 2.7 5.4 6s-2 5.6-5.4 5.6-5.4-2.3-5.4-5.6 2-6 5.4-6Zm-3.1 14h6.2c1 1.8 1.1 3.7-.1 5.3-1.1 1.5-4.9 1.5-6 0-1.2-1.6-1.1-3.5-.1-5.3Z"/></svg></button>
+            <button id="stage-tab-requirements" class="trail-step" type="button" data-stage="requirements" tabindex="-1" aria-disabled="true" aria-label="Step 3 · Requirements · locked"><svg class="step-flag" viewBox="0 0 16 18" aria-hidden="true"><path d="M3 1v16M3 2h10l-3 3.5L13 9H3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><svg class="bootprint" viewBox="0 0 24 26" aria-hidden="true"><path d="M12 1.5c3.4 0 5.4 2.7 5.4 6s-2 5.6-5.4 5.6-5.4-2.3-5.4-5.6 2-6 5.4-6Zm-3.1 14h6.2c1 1.8 1.1 3.7-.1 5.3-1.1 1.5-4.9 1.5-6 0-1.2-1.6-1.1-3.5-.1-5.3Z"/></svg></button>
+            <button id="stage-tab-routes" class="trail-step" type="button" data-stage="routes" tabindex="-1" aria-disabled="true" aria-label="Step 4 · Routes · locked"><svg class="step-flag" viewBox="0 0 16 18" aria-hidden="true"><path d="M3 1v16M3 2h10l-3 3.5L13 9H3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><svg class="bootprint" viewBox="0 0 24 26" aria-hidden="true"><path d="M12 1.5c3.4 0 5.4 2.7 5.4 6s-2 5.6-5.4 5.6-5.4-2.3-5.4-5.6 2-6 5.4-6Zm-3.1 14h6.2c1 1.8 1.1 3.7-.1 5.3-1.1 1.5-4.9 1.5-6 0-1.2-1.6-1.1-3.5-.1-5.3Z"/></svg></button>
+            <button id="stage-tab-export" class="trail-step" type="button" data-stage="export" tabindex="-1" aria-disabled="true" aria-label="Step 5 · Export · locked"><svg class="step-flag" viewBox="0 0 16 18" aria-hidden="true"><path d="M3 1v16M3 2h10l-3 3.5L13 9H3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><svg class="bootprint" viewBox="0 0 24 26" aria-hidden="true"><path d="M12 1.5c3.4 0 5.4 2.7 5.4 6s-2 5.6-5.4 5.6-5.4-2.3-5.4-5.6 2-6 5.4-6Zm-3.1 14h6.2c1 1.8 1.1 3.7-.1 5.3-1.1 1.5-4.9 1.5-6 0-1.2-1.6-1.1-3.5-.1-5.3Z"/></svg></button>
+          </div>
+          <button id="stage-next" class="trail-next sticker-btn" type="button">Continue →</button>
         </div>
+        <p id="bar-status" aria-live="polite" aria-atomic="true">Step 1 of 5 · Adding Pins</p>
+      </div>
+      <div id="control-dock-content" class="dock-content">
       <div id="control-dock-body" class="dock-body">
-        <section id="stage-method" class="stage-panel" role="tabpanel" aria-labelledby="stage-tab-method" tabindex="0">
+        <section id="stage-method" class="stage-panel" aria-labelledby="stage-tab-method" tabindex="0">
           <h2>How will you add your places?</h2>
           <p class="stage-intro">Choose a way below. We’ll show you just the tools you need next.</p>
         <label class="field" for="input-method">How would you like to add them?</label>
         <select id="input-method"><option value="" disabled>Choose how to add points…</option><option value="map-pins" selected>Put pins on the map</option><option value="coordinates">Paste coordinates</option><option value="text">Upload TXT or CSV</option><option value="gpx">Upload GPX</option><option value="map-image">Paste or upload a route map</option><option value="image">Review a map image or photo</option></select>
           <p class="help">Your points stay on the map when you switch tabs. An imported file replaces the draft only after it is read successfully.</p>
         </section>
-        <section id="stage-input" class="stage-panel" role="tabpanel" aria-labelledby="stage-tab-input" tabindex="0" hidden>
+        <section id="stage-input" class="stage-panel" aria-labelledby="stage-tab-input" tabindex="0" hidden>
           <h2 id="input-stage-title">Add your points</h2>
           <p id="input-stage-help" class="stage-intro">Add each place your hike must visit, then review the points on the map.</p>
     <section id="planner" class="workspace" aria-label="Plan your hike">
@@ -141,9 +143,9 @@
         <div id="paste-controls" class="paste-controls" hidden><button id="paste-map" class="primary">Paste map from clipboard</button><p class="help">Copy the image itself, then use this button or ⌘V / Ctrl+V. On iPhone, accept the browser’s Paste prompt. You can also choose a screenshot above. Links and pasted HTML are never opened.</p><p class="help">AI recognition can suggest the area and marked places when readable clues are present. Manual coloured-line tracing needs a flat map, three known coordinates and a continuous route line.</p></div>
         <p id="input-message" class="message" role="status" aria-live="polite" hidden></p>
       </div></div>
-      <aside class="panel guide-panel" aria-labelledby="guide-title"><div class="panel-heading"><span class="step" id="guide-step">1/4</span><h2 id="guide-title">Your next step</h2></div><div id="method-guide" class="method-guide" lang="en">
+      <aside class="panel guide-panel" aria-labelledby="guide-title"><div class="panel-heading"><h2 id="guide-title">Your next step</h2></div><div id="method-guide" class="method-guide" lang="en">
         <div class="guide-language"><span id="guide-language-label">Guidance language</span><button id="guide-language" type="button">繁體中文</button></div>
-        <p id="guide-method" class="guide-method">Paste coordinates · step 1 of 4</p><strong id="guide-prompt" class="guide-prompt" aria-live="polite">Start by adding your places</strong><ol id="guide-list" class="guide-list"></ol><p id="guide-note" class="guide-note"></p><div class="guide-actions"><button id="guide-action" type="button" class="primary"></button><button id="guide-secondary" type="button" class="text-button" hidden></button></div>
+        <p id="guide-method" class="guide-method">Put pins on the map</p><strong id="guide-prompt" class="guide-prompt" aria-live="polite">Start by adding your places</strong><ol id="guide-list" class="guide-list"></ol><p id="guide-note" class="guide-note"></p>
       </div><details class="guide-safety"><summary id="guide-safety-title">Why these steps matter</summary><div class="principles">
         <div class="principle"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m3 20 8-16 5 9 3-5 4 12ZM8 10l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><div><h3 id="guide-official-title">Use official trails first</h3><p id="guide-official-copy">A path on a map may still be closed, private or unsafe.</p></div></div>
         <div class="principle"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="3" width="14" height="16" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M5 11h14M8 19l-2 3m10-3 2 3M9 15h.01M15 15h.01" stroke="currentColor" stroke-width="2"/></svg><div><h3 id="guide-transit-title">Plan how to get there and home</h3><p id="guide-transit-copy">Check the real transport times for the day of your hike.</p></div></div>
@@ -195,7 +197,7 @@
     </section>
     </details>
         </section>
-        <section id="stage-requirements" class="stage-panel" role="tabpanel" aria-labelledby="stage-tab-requirements" tabindex="0" hidden>
+        <section id="stage-requirements" class="stage-panel" aria-labelledby="stage-tab-requirements" tabindex="0" hidden>
           <h2>Check your waypoints &amp; limits</h2>
           <p class="stage-intro">Keep every place you want to visit. Set how far you want to walk and how close transport must be.</p>
     <section id="route-builder" class="route-builder panel" aria-labelledby="build-title">
@@ -223,7 +225,7 @@
       </div>
     </section>
         </section>
-        <section id="stage-routes" class="stage-panel" role="tabpanel" aria-labelledby="stage-tab-routes" tabindex="0" hidden>
+        <section id="stage-routes" class="stage-panel" aria-labelledby="stage-tab-routes" tabindex="0" hidden>
           <h2>Compare your routes</h2>
           <p class="stage-intro">Use the coloured buttons to show or hide routes. Select one to see its details, or export all the options.</p>
           <button id="cancel-routing" type="button" hidden>Cancel search</button>
@@ -238,7 +240,7 @@
 
     </section>
         </section>
-        <section id="stage-export" class="stage-panel" role="tabpanel" aria-labelledby="stage-tab-export" tabindex="0" hidden>
+        <section id="stage-export" class="stage-panel" aria-labelledby="stage-tab-export" tabindex="0" hidden>
           <h2>Save your hike</h2>
           <p id="export-stage-help" class="stage-intro">Save one route, all routes, or a picture of the map. Review the route and transport details before you go.</p>
 
@@ -252,7 +254,6 @@
         </section>
     <button id="privacy-settings" class="privacy-button" type="button">Privacy settings</button>
       </div>
-        <div class="stage-footer"><button id="stage-back" type="button" hidden>← Back</button><button id="stage-next" type="button" class="primary" disabled>Continue →</button></div>
       </div>
     </section>
   </main>
@@ -1040,20 +1041,87 @@
         export: !!(model.pointCount || model.segmentCount || model.hasImage)
       };
     }
+    function stageLockedReason(stage, model) {
+      if (stageAvailability(model)[stage]) return null;
+      if (stage === 'input') return 'Choose how you want to add places first.';
+      if (stage === 'requirements') return 'Add at least one place first.';
+      if (stage === 'routes') return 'Set your places, then use Find.';
+      if (stage === 'export') return 'Add at least one place or file first.';
+      return null;
+    }
+    function stageNavTarget(order, available, current, direction) {
+      const index = order.indexOf(current);
+      const span = direction < 0 ? order.slice(0, index) : order.slice(index + 1);
+      const reachable = span.filter(stage => available[stage]);
+      return (direction < 0 ? reachable.at(-1) : reachable[0]) || null;
+    }
+    function stageNextAction(stage) {
+      return { method: 'continue', input: 'review', requirements: 'find', routes: 'export' }[stage] || null;
+    }
     // END STAGE MODEL
     const stageOrder = ['method', 'input', 'requirements', 'routes', 'export'];
     const stageNames = { method: 'Adding Pins', input: 'Add Points', requirements: 'Requirements', routes: 'Routes', export: 'Export' };
     const inputNames = { 'map-pins': 'Map pins', coordinates: 'Coordinates', text: 'TXT / CSV', gpx: 'GPX file', 'map-image': 'Route image', image: 'Map photo' };
+    const nextLabels = { continue: ['Continue →', 'Continue →'], review: ['Review waypoints →', 'Review →'], find: ['Find routes', 'Find'], export: ['Export →', 'Export →'] };
     let currentStage = 'method';
+    function stageModel() {
+      return { method: $('input-method').value, pointCount: state.points.length, segmentCount: state.segments.length, hasImage: !!state.imageUrl, routingBusy: routing.busy, routingSearched: routing.searched, routeCount: routing.result?.routes.length || 0 };
+    }
     function availableStages() {
-      return stageAvailability({ method: $('input-method').value, pointCount: state.points.length, segmentCount: state.segments.length, hasImage: !!state.imageUrl, routingBusy: routing.busy, routingSearched: routing.searched, routeCount: routing.result?.routes.length || 0 });
+      return stageAvailability(stageModel());
+    }
+    function setBarStatus(text) {
+      const bar = $('bar-status');
+      if (bar.textContent !== text) bar.textContent = text;
+    }
+    // Sheet controller: peek / half / full snap points positioned with translateY.
+    // Snap state is settled in JS only — never via transitionend (reduced-motion strips transitions).
+    const sheet = { snap: 'peek', locked: false, y: 0, heights: { peek: 120, half: 320, full: 640 }, reduced: matchMedia('(prefers-reduced-motion: reduce)') };
+    const narrowBar = matchMedia('(max-width: 380px)');
+    function viewportHeight() { return Math.round(window.visualViewport?.height || window.innerHeight); }
+    function snapOffset(snap) { return Math.max(0, sheet.heights.full - sheet.heights[snap]); }
+    function applySnap(animate = true) {
+      const dock = $('control-dock');
+      sheet.y = Math.max(0, Math.min(snapOffset('peek'), sheet.y));
+      dock.classList.toggle('dragging', !animate || sheet.reduced.matches);
+      dock.style.transform = `translate(-50%, ${sheet.y}px)`;
+      document.documentElement.style.setProperty('--dock-visible-height', `${Math.ceil(sheet.heights.full - sheet.y)}px`);
+    }
+    function measureSheet() {
+      const view = viewportHeight();
+      sheet.heights.full = Math.round(view * 0.88);
+      sheet.heights.half = Math.round(view * 0.45);
+      const bar = $('trail-bar-shell').getBoundingClientRect().height;
+      if (bar > 40) sheet.heights.peek = Math.round(bar);
+      $('control-dock').style.height = sheet.heights.full + 'px';
+      sheet.y = snapOffset(sheet.snap);
+      applySnap(false);
+    }
+    function setSnap(snap) {
+      if (sheet.locked && snap === 'full') snap = 'half';
+      sheet.snap = snap;
+      sheet.y = snapOffset(snap);
+      applySnap(true);
+      $('control-dock').classList.toggle('snap-peek', snap === 'peek');
+      const toggle = $('control-dock-toggle');
+      toggle.setAttribute('aria-expanded', String(snap !== 'peek'));
+      toggle.setAttribute('aria-label', `${snap === 'peek' ? 'Open' : 'Minimize'} planning controls — ${stageNames[currentStage]}`);
+    }
+    function sheetSetLocked(locked) {
+      sheet.locked = locked;
+      $('control-dock').classList.toggle('sheet-locked', locked);
+      if (locked) setSnap('peek');
+    }
+    function sheetAutoPeek() {
+      if (sheet.snap !== 'peek') setSnap('peek');
+    }
+    function focusStageControl(stage) {
+      ($('stage-' + stage) || $('stage-tab-' + stage))?.focus({ preventScroll: true });
     }
     function setDockExpanded(expanded, focus = false) {
-      $('control-dock').classList.toggle('collapsed', !expanded);
-      $('control-dock-toggle').setAttribute('aria-expanded', String(expanded));
-      $('control-dock-toggle').setAttribute('aria-label', `${expanded ? 'Minimize' : 'Open'} planning controls — ${stageNames[currentStage]}`);
-      if (map) requestAnimationFrame(() => map.invalidateSize({ pan: false, animate: false }));
-      if (focus && expanded) $('stage-tab-' + currentStage).focus({ preventScroll: true });
+      setSnap(expanded ? 'half' : 'peek');
+      if (focus && expanded) focusStageControl(currentStage);
+      if (!expanded && $('control-dock').contains(document.activeElement)) $('control-dock-toggle').focus({ preventScroll: true });
     }
     function setStage(stage, { expand = true, focus = false } = {}) {
       if (!availableStages()[stage]) return;
@@ -1061,46 +1129,65 @@
       currentStage = stage;
       updateDockState();
       $('control-dock-body').scrollTop = 0;
-      if (expand) setDockExpanded(true);
+      if (expand) setSnap('half');
       if (focus) $('stage-tab-' + stage).focus({ preventScroll: true });
     }
+    function setNextLabel(action) {
+      $('stage-next').textContent = action ? nextLabels[action][narrowBar.matches ? 1 : 0] : '';
+    }
+    let wasRoutingBusy = false;
     function updateDockState() {
-      const available = availableStages();
-      if (!available[currentStage]) currentStage = available.input ? 'input' : 'method';
+      const model = stageModel(), available = stageAvailability(model);
+      if (!available[currentStage]) {
+        const previous = currentStage;
+        currentStage = available.input ? 'input' : 'method';
+        if (previous !== currentStage && document.activeElement?.closest?.('.trail-steps')) $('stage-tab-' + currentStage).focus({ preventScroll: true });
+      }
+      const currentIndex = stageOrder.indexOf(currentStage), inputLabel = inputNames[model.method] || stageNames.input;
       for (const stage of stageOrder) {
-        const tab = $('stage-tab-' + stage), selected = currentStage === stage;
-        tab.disabled = !available[stage];
-        tab.setAttribute('aria-selected', String(selected));
-        tab.tabIndex = selected ? 0 : -1;
+        const button = $('stage-tab-' + stage), selected = currentStage === stage, locked = !available[stage];
+        button.classList.toggle('locked', locked);
+        button.classList.toggle('done', !selected && !locked && stageOrder.indexOf(stage) < currentIndex);
+        button.setAttribute('aria-disabled', String(locked));
+        if (selected) button.setAttribute('aria-current', 'step'); else button.removeAttribute('aria-current');
+        button.tabIndex = selected ? 0 : -1;
+        const name = stage === 'input' ? inputLabel : stageNames[stage];
+        button.setAttribute('aria-label', `Step ${stageOrder.indexOf(stage) + 1} · ${name}${locked ? ' · locked' : ''}`);
         $('stage-' + stage).hidden = !selected;
       }
-      const method = $('input-method').value;
-      $('stage-tab-input').lastElementChild.textContent = inputNames[method] || stageNames.input;
-      $('input-stage-title').textContent = inputNames[method] || 'Add your points';
-      $('manual-trace-tools').hidden = !['map-image', 'image'].includes(method) || !trace.bitmap;
+      $('input-stage-title').textContent = inputLabel;
+      $('manual-trace-tools').hidden = !['map-image', 'image'].includes(model.method) || !trace.bitmap;
       $('route-builder').hidden = !available.requirements;
       $('route-results').hidden = !available.routes;
       $('dock-map-controls').hidden = !available.export;
-      $('dock-title').textContent = stageNames[currentStage];
-      $('dock-summary').textContent = '';
-      const expanded = !$('control-dock').classList.contains('collapsed');
-      $('control-dock-toggle').setAttribute('aria-label', `${expanded ? 'Minimize' : 'Open'} planning controls — ${stageNames[currentStage]}`);
-      const back = $('stage-back'), next = $('stage-next');
-      back.hidden = currentStage === 'method';
-      next.hidden = ['requirements', 'export'].includes(currentStage);
-      next.textContent = currentStage === 'method' ? 'Continue →' : currentStage === 'input' ? 'Review waypoints →' : 'Export →';
-      next.disabled = currentStage === 'method' ? !available.input : currentStage === 'input' ? !available.requirements : !routing.result?.routes.length;
-      document.querySelector('.stage-footer').hidden = currentStage === 'method' && !available.input;
+      const back = $('stage-back');
+      back.style.visibility = currentStage === 'method' ? 'hidden' : 'visible';
+      const next = $('stage-next'), action = stageNextAction(currentStage);
+      next.hidden = !action;
+      setNextLabel(action);
+      next.disabled = action === 'continue' ? !available.input : action === 'review' ? !available.requirements : action === 'find' ? $('find-routes').disabled : !routing.result?.routes.length;
+      setBarStatus(`Step ${currentIndex + 1} of 5 · ${currentStage === 'input' ? inputLabel : stageNames[currentStage]}`);
       $('route-details-button').hidden = !routing.selected;
+      if (wasRoutingBusy && !routing.busy && routing.result?.routes?.length) setSnap('half');
+      wasRoutingBusy = routing.busy;
     }
-    for (const stage of stageOrder) $('stage-tab-' + stage).addEventListener('click', () => setStage(stage));
-    document.querySelector('.stage-tabs').addEventListener('keydown', event => {
+    function activateStage(stage, { focus = false } = {}) {
+      const reason = stageLockedReason(stage, stageModel());
+      if (reason) { setBarStatus(`${stageNames[stage]} is locked — ${reason}`); return; }
+      setStage(stage, { focus });
+    }
+    for (const stage of stageOrder) $('stage-tab-' + stage).addEventListener('click', () => activateStage(stage));
+    document.querySelector('.trail-steps').addEventListener('keydown', event => {
       if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
-      const available = availableStages(), enabled = stageOrder.filter(stage => available[stage]);
-      const index = enabled.indexOf(currentStage);
-      const next = event.key === 'Home' ? 0 : event.key === 'End' ? enabled.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + enabled.length) % enabled.length;
-      event.preventDefault(); setStage(enabled[next], { focus: true });
+      event.preventDefault();
+      const from = stageOrder.indexOf(document.activeElement?.dataset?.stage || currentStage);
+      const index = event.key === 'Home' ? 0 : event.key === 'End' ? stageOrder.length - 1 : (from + (event.key === 'ArrowRight' ? 1 : -1) + stageOrder.length) % stageOrder.length;
+      const stage = stageOrder[index];
+      $('stage-tab-' + stage).focus({ preventScroll: true });
+      activateStage(stage, { focus: true });
     });
+    narrowBar.addEventListener?.('change', () => setNextLabel(stageNextAction(currentStage)));
+    new MutationObserver(() => { if (currentStage === 'requirements') updateDockState(); }).observe($('find-routes'), { attributes: true, attributeFilter: ['disabled'] });
     // Native horizontal scrolling preserves trackpad momentum and touch gestures.
     // Keyboard browsing only applies to the row itself, never its action buttons.
     const routeOptions = $('route-options');
@@ -1118,20 +1205,57 @@
       routeOptions.scrollTo({ left, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
     });
     $('stage-back').addEventListener('click', () => {
-      const available = availableStages(), prior = stageOrder.slice(0, stageOrder.indexOf(currentStage)).filter(stage => available[stage]).at(-1);
-      if (prior) setStage(prior);
+      const target = stageNavTarget(stageOrder, availableStages(), currentStage, -1);
+      if (target) setStage(target);
     });
     $('stage-next').addEventListener('click', () => {
       if ($('stage-next').disabled) return;
-      setStage(currentStage === 'method' ? 'input' : currentStage === 'input' ? 'requirements' : 'export');
+      const action = stageNextAction(currentStage);
+      if (action === 'find') { $('find-routes').click(); return; }
+      const target = { continue: 'input', review: 'requirements', export: 'export' }[action];
+      if (target) setStage(target);
     });
-    $('control-dock-toggle').addEventListener('click', () => setDockExpanded($('control-dock').classList.contains('collapsed'), true));
-    const syncDockHeight = () => {
-      const dock = $('control-dock'), bottom = parseFloat(getComputedStyle(dock).bottom) || 0;
-      document.documentElement.style.setProperty('--dock-visible-height', `${Math.ceil(dock.getBoundingClientRect().height + bottom)}px`);
-    };
-    new ResizeObserver(syncDockHeight).observe($('control-dock')); requestAnimationFrame(syncDockHeight);
-    window.addEventListener('resize', syncDockHeight);
+    // Sheet drag: handle zone only, pointer capture, flick-aware. Tap toggles peek ↔ half.
+    const dockToggle = $('control-dock-toggle');
+    let sheetDrag = null, suppressToggleClick = false;
+    dockToggle.addEventListener('pointerdown', event => {
+      measureSheet();
+      sheetDrag = { id: event.pointerId, startY: event.clientY, startSheetY: sheet.y, time: event.timeStamp, moved: false };
+      dockToggle.setPointerCapture(event.pointerId);
+    });
+    dockToggle.addEventListener('pointermove', event => {
+      if (!sheetDrag || event.pointerId !== sheetDrag.id) return;
+      const delta = event.clientY - sheetDrag.startY;
+      if (Math.abs(delta) > 5) sheetDrag.moved = true;
+      if (!sheetDrag.moved) return;
+      sheet.y = Math.max(0, Math.min(snapOffset('peek'), sheetDrag.startSheetY + delta));
+      applySnap(false);
+    });
+    function endSheetDrag(event) {
+      if (!sheetDrag || event.pointerId !== sheetDrag.id) return;
+      const delta = event.clientY - sheetDrag.startY, elapsed = Math.max(event.timeStamp - sheetDrag.time, 1), moved = sheetDrag.moved;
+      sheetDrag = null;
+      if (!moved) return;
+      suppressToggleClick = true;
+      setTimeout(() => { suppressToggleClick = false; }, 0);
+      const velocity = delta / elapsed;
+      let target = sheet.snap;
+      if (velocity > 0.4) target = sheet.y > snapOffset('half') ? 'peek' : 'half';
+      else if (velocity < -0.4) target = sheet.y < snapOffset('half') ? 'full' : 'half';
+      else target = ['peek', 'half', 'full'].map(name => [name, snapOffset(name)]).sort((a, b) => Math.abs(a[1] - sheet.y) - Math.abs(b[1] - sheet.y))[0][0];
+      setSnap(target);
+      if (target === 'peek' && $('control-dock').contains(document.activeElement)) dockToggle.focus({ preventScroll: true });
+    }
+    dockToggle.addEventListener('pointerup', endSheetDrag);
+    dockToggle.addEventListener('pointercancel', endSheetDrag);
+    dockToggle.addEventListener('click', () => {
+      if (suppressToggleClick) return;
+      if (sheet.snap === 'peek') { setSnap('half'); focusStageControl(currentStage); }
+      else setSnap('peek');
+    });
+    window.addEventListener('resize', measureSheet);
+    window.visualViewport?.addEventListener('resize', measureSheet);
+    if (document.fonts?.ready) document.fonts.ready.then(() => measureSheet());
     function revealControl(id) {
       const target = $(id), stage = target?.closest('.stage-panel');
       if (stage) setStage(stage.id.replace('stage-', ''));
@@ -1153,6 +1277,9 @@
         if (node.textContent.trim() && currentStage === 'input' && !$('stage-input').hidden) toast(node.textContent, node.classList.contains('error'), 7000);
       }).observe($(id), { childList: true, characterData: true, subtree: true });
     }
+    measureSheet();
+    setSnap('peek');
+    updateDockState();
     // END STAGE UI
     function parseCoordinates(text) {
       text = text.trim().replace(/^\uFEFF/, '').replace(/^lat(?:itude)?\s*[,;\t]\s*(?:lon(?:gitude)?|lng)\s*(?:\r?\n|\r)/i, '');
@@ -1905,7 +2032,6 @@
     try { const saved = localStorage.getItem(GUIDE_LANGUAGE_KEY); if (saved === 'zh-Hant') guideLanguage = saved; } catch {}
     let guideAction = 'focus-coordinates';
     const guideMethodOptions = Array.from($('input-method').options);
-    const guideScroll = (id, focusId = id) => { revealControl(id); $(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); setTimeout(() => $(focusId)?.focus({ preventScroll: true }), 350); };
     function guideEndpointReady() { try { return !!recognitionEndpoint(); } catch { return false; } }
     function guideModel() {
       return {
@@ -1925,14 +2051,8 @@
     function updateInputGuide() {
       const copy = guideCopy[guideLanguage], model = guideModel(), status = guideStateFor(model), method = copy.methods[model.method]; guideAction = status.action;
       $('method-guide').lang = guideLanguage; $('next-action').lang = guideLanguage; $('guide-title').textContent = copy.title; $('guide-language-label').textContent = copy.language; $('guide-language').textContent = copy.switchLanguage;
-      $('guide-step').textContent = `${status.step}/4`; $('guide-method').textContent = `${method.label} · ${copy.stepOf(status.step)}`; const prompt = copy.prompts[status.action][0]; if ($('guide-prompt').textContent !== prompt) $('guide-prompt').textContent = prompt; $('guide-note').textContent = guideNote(copy, model);
+      $('guide-method').textContent = method.label; const prompt = copy.prompts[status.action][0]; if ($('guide-prompt').textContent !== prompt) $('guide-prompt').textContent = prompt; $('guide-note').textContent = guideNote(copy, model);
       const steps = document.createDocumentFragment(); method.steps.forEach((text, index) => { const item = element('li', text); item.dataset.step = String(index + 1); if (index < status.step - 1) item.className = 'done'; if (index === status.step - 1) { item.className = 'current'; item.setAttribute('aria-current', 'step'); } steps.append(item); }); $('guide-list').replaceChildren(steps);
-      $('guide-action').textContent = copy.actions[status.action]; $('guide-action').disabled = status.action.startsWith('waiting-');
-      const secondary = $('guide-secondary'); secondary.hidden = false;
-      if (model.method === 'map-image' && !model.hasImage) { secondary.textContent = copy.paste; secondary.dataset.action = 'paste'; }
-      else if (model.method === 'map-image' && model.hasImage) { secondary.textContent = copy.trace; secondary.dataset.action = 'trace'; }
-      else if (['image', 'map-image'].includes(model.method) && status.action === 'setup-recognition') { secondary.textContent = copy.coordinatesInstead; secondary.dataset.action = 'coordinates'; }
-      else { secondary.hidden = true; secondary.textContent = ''; secondary.dataset.action = ''; }
       $('guide-safety-title').textContent = copy.safetyTitle; $('guide-official-title').textContent = copy.officialTitle; $('guide-official-copy').textContent = copy.officialCopy; $('guide-transit-title').textContent = copy.transitTitle; $('guide-transit-copy').textContent = copy.transitCopy; $('guide-connections-title').textContent = copy.connectionsTitle; $('guide-connections-copy').textContent = copy.connectionsCopy; $('guide-privacy').textContent = copy.privacy;
       guideMethodOptions.forEach(option => { if (option.value) option.textContent = copy.methods[option.value].label; });
       const nextKey = routing.selected ? 'selected' : routing.result ? 'routes' : routing.busy ? 'busy' : state.points.length > MAX_WAYPOINTS ? 'tooMany' : state.points.length ? 'ready' : 'empty';
@@ -1940,24 +2060,7 @@
       const nextStrong = element('strong', copy.next[nextKey]), nextDetails = element('p', details);
       if ($('next-action').textContent !== nextStrong.textContent + nextDetails.textContent) $('next-action').replaceChildren(nextStrong, nextDetails);
     }
-    function runGuideAction() {
-      const action = guideAction;
-      if (action === 'add-map-pins') return $('start-pin-mode').click();
-      if (action === 'focus-coordinates') return guideScroll('planner', 'coordinates');
-      if (action === 'preview-coordinates') return $('preview-points').click();
-      if (action === 'choose-text' || action === 'choose-gpx' || action === 'choose-image') return $('file-input').click();
-      if (action === 'setup-recognition') { $('ai-connection').open = true; return guideScroll('ai-review', 'ai-endpoint'); }
-      if (action === 'identify-image') return guideScroll('ai-review', 'recognize-map');
-      if (action === 'review-candidates') { const target = $('ai-candidates').querySelector('input, button'); guideScroll('ai-results'); if (target) setTimeout(() => target.focus({ preventScroll: true }), 350); return; }
-      if (action === 'add-photo-gps') return guideScroll('image-review', 'add-photo-gps');
-      if (action === 'review-remove') return guideScroll('route-builder', 'waypoints');
-      if (action === 'route-settings') return guideScroll('route-builder', 'plan-region');
-      if (action === 'compare-routes') return guideScroll('route-results', 'route-options');
-      if (action === 'review-save') return guideScroll('map-title', 'map-title');
-    }
     $('guide-language').addEventListener('click', () => { guideLanguage = guideLanguage === 'en' ? 'zh-Hant' : 'en'; try { localStorage.setItem(GUIDE_LANGUAGE_KEY, guideLanguage); } catch {} updateInputGuide(); });
-    $('guide-action').addEventListener('click', runGuideAction);
-    $('guide-secondary').addEventListener('click', () => { const action = $('guide-secondary').dataset.action; if (action === 'paste') $('paste-map').click(); else if (action === 'trace') guideScroll('image-converter', 'trace-canvas'); else if (action === 'coordinates') { $('input-method').value = 'coordinates'; $('input-method').dispatchEvent(new Event('change')); guideScroll('planner', 'coordinates'); } });
     $('coordinates').addEventListener('input', updateInputGuide);
     updateInputGuide();
     // END GUIDANCE UI
@@ -2287,7 +2390,7 @@
       $('map-gesture-note').hidden = false;
       $('map-gesture-note').textContent = state.adding ? 'Tap empty map space to add a pin. Pinch or use the wheel to zoom; drag the map to pan. Drag a pin to move it, or tap/right-click it to delete.' : 'Pinch or use the wheel/trackpad to zoom. Drag to pan. Drag a pin to move it; tap or right-click it to delete.';
     }
-    function setAdding(value) { if (value && !mapMarkersVisible) { setMapMarkersVisible(true); render(false); } state.adding = value; $('toggle-pins').setAttribute('aria-pressed', String(value)); $('toggle-pins').textContent = value ? '✓ Finish adding pins' : '+ Add pins on map'; $('start-pin-mode').hidden = value; $('finish-pin-mode').hidden = !value; if (map) map.getContainer().style.cursor = value ? 'crosshair' : ''; setMapInteraction(true); }
+    function setAdding(value) { if (value && !mapMarkersVisible) { setMapMarkersVisible(true); render(false); } state.adding = value; $('toggle-pins').setAttribute('aria-pressed', String(value)); $('toggle-pins').textContent = value ? '✓ Finish adding pins' : '+ Add pins on map'; $('start-pin-mode').hidden = value; $('finish-pin-mode').hidden = !value; if (map) map.getContainer().style.cursor = value ? 'crosshair' : ''; setMapInteraction(true); sheetSetLocked(value); }
     function startAddingPins() { if (!map) return; setAdding(true); setDockExpanded(false); toast('Tap or click empty map space to add waypoints. Open the controls when you are finished.'); }
     $('start-pin-mode').addEventListener('click', startAddingPins);
     $('finish-pin-mode').addEventListener('click', () => { setAdding(false); setStage(state.points.length ? 'requirements' : 'input'); });
@@ -2389,7 +2492,7 @@
       map.attributionControl.setPrefix(false);
       tileLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, crossOrigin: 'anonymous', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" aria-label="OpenStreetMap contributors and licence">OpenStreetMap</a>' }).addTo(map);
       markers = L.layerGroup().addTo(map); tracks = L.layerGroup().addTo(map);
-      map.on('click', event => { if (!state.adding) return; if (state.points.length >= MAX_WAYPOINTS) { toast(`Maximum ${MAX_WAYPOINTS} waypoints.`); return; } const p = event.latlng.wrap(), number = state.points.length + 1; mutateWaypoints(() => { state.points.push({ ...point(p.lat, p.lng, `Map waypoint ${number}`), manual: true }); state.source = 'Manual map pins'; }, `Waypoint ${number} added.`); track('map_pin_added'); });
+      map.on('click', event => { sheetAutoPeek(); if (!state.adding) return; if (state.points.length >= MAX_WAYPOINTS) { toast(`Maximum ${MAX_WAYPOINTS} waypoints.`); return; } const p = event.latlng.wrap(), number = state.points.length + 1; mutateWaypoints(() => { state.points.push({ ...point(p.lat, p.lng, `Map waypoint ${number}`), manual: true }); state.source = 'Manual map pins'; }, `Waypoint ${number} added.`); track('map_pin_added'); });
       tileLayer.on('tileerror', () => { toast('Some basemap tiles could not load. Check your connection; do not infer paths from missing tiles.'); });
       setMapInteraction(true);
       let resizeFrame, previousWidth = 0, previousHeight = 0;
