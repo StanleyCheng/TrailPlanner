@@ -279,7 +279,7 @@ export function createRoutePlanHandler(options = {}) {
         return json(status, { error: message }, origin);
       }
       const message = String(error?.message || 'No connected route met the selected limits.').slice(0, 1200);
-      return json(422, { error: message, code: error?.code }, origin);
+      return json(422, { error: message, code: error?.code, vars: error?.vars }, origin);
     }
   };
 }

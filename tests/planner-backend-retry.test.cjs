@@ -4,17 +4,19 @@ const assert = require('node:assert/strict');
 const { test } = require('node:test');
 
 const R = require('../lib/route-engine.js');
+const { loadI18n } = require('./helpers/i18n.cjs');
+const { t } = loadI18n();
 const source = readFileSync(join(__dirname, '../lib/planner-ui.js'), 'utf8');
 const functionSource = source.match(/async function getBackendPlan\([\s\S]*?\n    }\n    function workerPlan/);
 assert.ok(functionSource, 'getBackendPlan can be isolated for regression testing');
 
 function backendPlanner(fetcher, status = { textContent: '' }, messages = []) {
   const factory = new Function(
-    'fetch', 'AbortSignal', '$', 'statusFindMilestone', 'ROUTE_BACKEND_URL', 'TrailRouter',
+    'fetch', 'AbortSignal', '$', 'statusFindMilestone', 'ROUTE_BACKEND_URL', 'TrailRouter', 't',
     `${functionSource[0].replace(/\n    function workerPlan$/, '')}; return getBackendPlan;`
   );
   return {
-    plan: factory(fetcher, AbortSignal, () => status, text => messages.push(text), 'https://example.test/api/plan-routes', R),
+    plan: factory(fetcher, AbortSignal, () => status, text => messages.push(text), 'https://example.test/api/plan-routes', R, t),
     status,
     messages
   };
@@ -76,7 +78,8 @@ test('direct browser fallback remains available when the route endpoint is absen
 
 test('browser size-limit guidance points dense plans back to the route server', () => {
   assert.doesNotMatch(source, /Map response is too large\. Reduce the search radius/);
-  assert.match(source, /walking map is too large for safe browser processing/);
+  assert.match(source, /t\('planner\.error\.oversizedMap'\)/);
+  assert.match(t('planner.error.oversizedMap'), /walking map is too large for safe browser processing/);
 });
 
 test('a server that ignores harder hiking or omits segment grades triggers the local engine', async () => {

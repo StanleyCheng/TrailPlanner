@@ -5,8 +5,10 @@ const { join } = require('node:path');
 const R = require('../lib/route-engine.js');
 const fixture = require('./fixtures/harder-hiking.cjs');
 const source = readFileSync(join(__dirname, '../lib/planner-ui.js'), 'utf8');
+const { loadI18n } = require('./helpers/i18n.cjs');
+const { t } = loadI18n();
 const helpers = source.slice(source.indexOf('    const DIFFICULTY_STYLES'), source.indexOf('    const WAYPOINT_PIN_PATH')) + source.slice(source.indexOf('    const sacScaleLabel'), source.indexOf('    function activeRegion'));
-const makeHelpers = routing => new Function('TrailRouter', 'routing', `${helpers}; return { routeDifficultySections, visibleDifficultySections, harderTerrainWarning, roughSurfaceWarning, sacScaleLabel };`)(R, routing);
+const makeHelpers = routing => new Function('TrailRouter', 'routing', 't', `${helpers}; return { routeDifficultySections, visibleDifficultySections, harderTerrainWarning, roughSurfaceWarning, sacScaleLabel, sacScaleLabelText };`)(R, routing, t);
 const { routeDifficultySections, harderTerrainWarning, roughSurfaceWarning, sacScaleLabel } = makeHelpers();
 const harderRouteSections = route => routeDifficultySections(route).filter(section => R.harderThanHiking(section.sacScale));
 
@@ -20,7 +22,7 @@ test('the harder hiking switch is on initially and changing it changes the route
   };
   const declarations = source.slice(source.indexOf('    const planSwitches'), source.indexOf('    const providers')) + source.slice(source.indexOf('    const switchEnabled'), source.indexOf('    const sacScaleLabel'));
   const handler = source.slice(source.indexOf('    for (const id of planSwitches)'), source.indexOf('    const today'));
-  const fingerprint = new Function('$', 'state', `${declarations}\n${handler}\nreturn routingFingerprint;`)($, { points: [], segments: [], source: '' });
+  const fingerprint = new Function('$', 'state', 't', `${declarations}\n${handler}\nreturn routingFingerprint;`)($, { points: [], segments: [], source: '' }, t);
   const control = $('plan-harder-hiking'); control.checked = 'true'; control.state.textContent = 'On';
   const before = fingerprint();
   control.click();
@@ -101,7 +103,7 @@ test('difficulty colors are optional and immediately replace normal colors for v
   const layer = { bindPopup(text) { this.popup = text; return this; }, addTo() { return this; } };
   const L = { polyline(coords, options) { const line = { ...layer, coords, ...options }; lines.push(line); return line; }, marker: () => layer, divIcon: () => ({}) };
   const paintSource = source.slice(source.indexOf('    function paintPlannedRoute'), source.indexOf('    async function boundedJSON'));
-  const paint = new Function('routing', '$', 'map', 'L', 'tracks', 'markers', 'ROUTE_COLORS', 'difficultyColorsEnabled', 'visibleDifficultySections', 'sacScaleLabel', 'mapMarkersVisible', 'km', 'stopRouteRun', 'startRouteRun', 'statusSetRoute', `${paintSource};return paintPlannedRoute;`)(routing, $, {}, L, {}, {}, ['green', 'purple'], enabled, makeHelpers(routing).visibleDifficultySections, sacScaleLabel, false, n => String(n), () => {}, () => {}, () => {});
+  const paint = new Function('routing', '$', 'map', 'L', 'tracks', 'markers', 'ROUTE_COLORS', 'difficultyColorsEnabled', 'visibleDifficultySections', 'sacScaleLabel', 'mapMarkersVisible', 'km', 'stopRouteRun', 'startRouteRun', 'statusSetRoute', 't', 'routeTitle', 'sacScaleLabelText', `${paintSource};return paintPlannedRoute;`)(routing, $, {}, L, {}, {}, ['green', 'purple'], enabled, makeHelpers(routing).visibleDifficultySections, sacScaleLabel, false, n => String(n), () => {}, () => {}, () => {}, t, route => route.title, makeHelpers(routing).sacScaleLabelText);
   paint();
   assert.deepEqual(lines.map(l => l.color), ['green', 'purple']);
   assert.equal($('route-difficulty-legend').hidden, true);
@@ -134,7 +136,7 @@ test('the difficulty switch sits below map route toggles and changes only the di
   const control = { checked: 'false', state: { textContent: 'Off' }, setAttribute(k, v) { this.checked = v; }, querySelector() { return this.state; } };
   const renders = [];
   const code = source.slice(source.indexOf('    function toggleDifficultyColors'), source.indexOf("    $('route-difficulty-colors').addEventListener"));
-  const toggle = new Function('$', 'difficultyColorsEnabled', 'render', `${code};return toggleDifficultyColors;`)(() => control, () => control.checked === 'true', fit => renders.push(fit));
+  const toggle = new Function('$', 'difficultyColorsEnabled', 'render', 't', `${code};return toggleDifficultyColors;`)(() => control, () => control.checked === 'true', fit => renders.push(fit), t);
   toggle(); assert.equal(control.checked, 'true'); assert.equal(control.state.textContent, 'On');
   toggle(); assert.equal(control.checked, 'false'); assert.equal(control.state.textContent, 'Off');
   assert.deepEqual(renders, [false, false]);
