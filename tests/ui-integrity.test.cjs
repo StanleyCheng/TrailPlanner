@@ -12,6 +12,7 @@ const guidance = read('lib/guidance-ui.js').trim();
 const stages = read('lib/stage-ui.js').trim();
 const loupe = read('lib/loupe-ui.js').trim();
 const status = read('lib/status-ui.js').trim();
+const i18n = read('lib/i18n-ui.js').trim();
 const manifest = JSON.parse(read('site.webmanifest'));
 
 function inlineFragment(marker) {
@@ -23,7 +24,7 @@ function inlineFragment(marker) {
 
 test('visible product branding uses the requested TrailPlanner spelling', () => {
   assert.match(html, /<title>TrailPlanner — GPX route planner<\/title>/);
-  assert.match(html, /<span class="brand-name">TrailPlanner<\/span>/);
+  assert.match(html, /<span class="brand-name" data-i18n="page\.brand\.name">TrailPlanner<\/span>/);
   assert.doesNotMatch(html, /trailplaner/i);
 });
 
@@ -69,10 +70,11 @@ test('single-file build embeds the authored UI fragments exactly', () => {
   assert.equal(inlineFragment('STAGE UI'), stages);
   assert.equal(inlineFragment('LOUPE UI'), loupe);
   assert.equal(inlineFragment('STATUS UI'), status);
+  assert.equal(inlineFragment('I18N UI'), i18n);
 });
 
 test('method guidance and map gestures use the existing planning controls', () => {
-  for (const id of ['guide-title', 'guide-language', 'guide-list']) assert.match(html, new RegExp(`id=["']${id}["']`));
+  for (const id of ['guide-title', 'guide-list']) assert.match(html, new RegExp(`id=["']${id}["']`));
   assert.match(guidance, /function guideStateFor\(/);
   assert.match(guidance, /'zh-Hant'/);
   for (const method of ['map-pins', 'coordinates', 'text', 'gpx', 'map-image', 'image']) assert.equal(guidance.includes(method), true, `${method} guidance is authored`);
@@ -115,8 +117,8 @@ test('map-first route controls support colored combinations and individual or co
 });
 
 test('route limits include the compact transport search and long-hike choices', () => {
-  assert.match(html, /<option value="1000" selected>1 km first · up to 20 km if needed<\/option>/);
-  assert.match(html, /<option value="80000">80 km<\/option>/);
+  assert.match(html, /<option value="1000" data-i18n="page\.plan\.radiusOption1" selected>1 km first · up to 20 km if needed<\/option>/);
+  assert.match(html, /<option value="80000" data-i18n="page\.plan\.distance80">80 km<\/option>/);
 });
 
 test('compact map controls expose the requested motion and alignment safely', () => {
@@ -146,7 +148,7 @@ test('trail bar exposes bootprint step navigation and a live status line', () =>
   assert.match(stages, /function stageLockedReason\(/);
   assert.match(stages, /function stageNavTarget\(/);
   assert.match(stages, /\$\('find-routes'\)\.click\(\)/);
-  assert.match(html, /id="status-banner" class="status-banner" hidden><span id="status-banner-text"><\/span><button id="status-banner-dismiss" type="button" aria-label="Dismiss message">/);
+  assert.match(html, /id="status-banner" class="status-banner" hidden><span id="status-banner-text"><\/span><button id="status-banner-dismiss" type="button" aria-label="Dismiss message" data-i18n-aria="page.bannerDismiss">/);
   assert.match(html, /id="status-subline" class="status-subline" hidden><span id="cairn" class="cairn" hidden aria-hidden="true">/);
   assert.match(html, /<\/span><p id="status-ticker" class="status-ticker"><\/p><button id="status-cancel"/);
   assert.match(stages, /statusSetStep\(/);
@@ -167,7 +169,7 @@ test('status system centralizes live-region ownership and retires the header pil
   assert.match(status, /function statusBannerShow\(/);
   assert.match(planner, /statusFindStart\(serial, \$\('routing-status'\)\.textContent\)/);
   assert.match(planner, /statusFindMilestone\(retryText\)/);
-  assert.match(planner, /statusSetRoute\(`Route \$\{routeNumber\} · \$\{km\(r\.metres\)\} · \$\{r\.title\} · provisional · all \$\{state\.points\.length\} mandatory places`\)/);
+  assert.match(planner, /statusSetRoute\(t\('planner\.routes\.statusSelected', \{ n: routeNumber, km: km\(r\.metres\), title: routeTitle\(r\), count: state\.points\.length \}\)\)/);
 });
 
 test('map data providers offer automatic transient-error fallback', () => {
@@ -179,7 +181,7 @@ test('map data providers offer automatic transient-error fallback', () => {
   assert.match(planner, /async function getMapData\(/);
   assert.match(planner, /https:\/\/trailplanner\.vercel\.app\/api\/plan-routes/);
   assert.match(planner, /async function getBackendPlan\(/);
-  assert.match(planner, /Using the local route engine\. Downloading paths from map providers/);
+  assert.match(planner, /t\('planner\.find\.localEngine'\)/);
   assert.match(planner, /if \(!canTryAnotherProvider\(error\)/);
 });
 

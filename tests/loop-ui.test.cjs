@@ -8,16 +8,16 @@ const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const planner = fs.readFileSync(path.join(root, 'lib', 'planner-ui.js'), 'utf8');
 
 test('route requirements default to 50 km and allow eligible urban running ways', () => {
-  assert.match(html, /<option value="80000" selected>Urban runner \/ hiker · eligible ways<\/option>/);
-  assert.match(html, /<option value="50000" selected>50 km<\/option>/);
-  assert.match(html, /<option value="3000">3 km total · trail focused<\/option>/);
+  assert.match(html, /<option value="80000" data-i18n="page\.plan\.roadsUrban" selected>Urban runner \/ hiker · eligible ways<\/option>/);
+  assert.match(html, /<option value="50000" data-i18n="page\.plan\.distance50" selected>50 km<\/option>/);
+  assert.match(html, /<option value="3000" data-i18n="page\.plan\.roadsTrailFocused">3 km total · trail focused<\/option>/);
   assert.doesNotMatch(html, /<option value="(?:30000|3000|1500)" selected>/);
   assert.match(html, /id="plan-loop"[^>]*aria-checked="false"/);
 });
 
 test('loop UI explains the waypoint anchor and omits transport from direct map downloads', () => {
-  assert.match(planner, /Waypoint 1 · no transport requirement/);
-  assert.match(planner, /Public transport was not searched or required/);
+  assert.match(planner, /planner\.routes\.loopStop/);
+  assert.match(planner, /planner\.details\.loopText/);
   assert.match(planner, /includeTransport: !settings\.loop/);
   assert.match(planner, /Starts and finishes at waypoint 1/);
 });

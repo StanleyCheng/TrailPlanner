@@ -9,14 +9,14 @@ const planner = readFileSync(join(root, 'lib/planner-ui.js'), 'utf8');
 
 test('official-trail stream crossings are explicit, on by default, and sent to the planner', () => {
   assert.match(html, /id="plan-official-fords"[^>]*role="switch"[^>]*aria-checked="true"[^>]*>[\s\S]*?<span class="switch-state"[^>]*>On<\/span>/);
-  assert.match(html, /id="plan-official-fords-label">Official trail stream crossings</);
+  assert.match(html, /id="plan-official-fords-label" data-i18n="page\.plan\.fords">Official trail stream crossings</);
   assert.match(planner, /allowOfficialFords: officialFordsEnabled\(\)/);
   assert.match(planner, /\['loop', 'official-fords', 'harder-hiking'\]/);
 });
 
 test('route review and GPX output disclose every enabled ford crossing', () => {
-  assert.match(planner, /mapped stream crossing/);
-  assert.match(planner, /Caution: this route uses/);
+  assert.match(planner, /planner\.routes\.fordsOne|mapped stream crossing/);
+  assert.match(planner, /planner\.details\.fordCautionOne/);
   assert.match(planner, /CAUTION:.*mapped ford crossing/);
   assert.match(planner, /recent rain and water level/);
 });

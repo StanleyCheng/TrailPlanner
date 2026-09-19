@@ -68,7 +68,7 @@ test('one outlined light yellow dot runs on each visible route with the exact ro
 
 test('route number and length live in the bar status line instead of covering map geometry', () => {
   assert.match(source, /dot\.append\(element\('span', String\(i \+ 1\), 'map-route-number'\), element\('small', km\(route\.metres\), 'map-route-length'\)\)/);
-  assert.match(source, /statusSetRoute\(`Route \$\{routeNumber\} · \$\{km\(r\.metres\)\} · \$\{r\.title\} · provisional · all \$\{state\.points\.length\} mandatory places`\)/);
+  assert.match(source, /statusSetRoute\(t\('planner\.routes\.statusSelected', \{ n: routeNumber, km: km\(r\.metres\), title: routeTitle\(r\), count: state\.points\.length \}\)\)/);
   assert.doesNotMatch(source, /route-line-label/);
   assert.doesNotMatch(html, /route-line-label/);
 });
@@ -77,7 +77,7 @@ test('Run toggles rendering immediately and resets for a new route search', () =
   const control = { checked: 'false', state: { textContent: 'Off' }, setAttribute(name, value) { this.checked = value; }, querySelector() { return this.state; } };
   const renders = [];
   const code = source.slice(source.indexOf('    function setRouteRun'), source.indexOf("    $('route-run').addEventListener"));
-  const toggle = new Function('$', 'routeRunEnabled', 'render', `${code}; return toggleRouteRun;`)(() => control, () => control.checked === 'true', fit => renders.push(fit));
+  const toggle = new Function('$', 'routeRunEnabled', 'render', 't', `${code}; return toggleRouteRun;`)(() => control, () => control.checked === 'true', fit => renders.push(fit), key => ({ 'switch.on': 'On', 'switch.off': 'Off' }[key] ?? key));
   toggle(); assert.equal(control.checked, 'true'); assert.equal(control.state.textContent, 'On');
   toggle(); assert.equal(control.checked, 'false'); assert.equal(control.state.textContent, 'Off');
   assert.deepEqual(renders, [false, false]);

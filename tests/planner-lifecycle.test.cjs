@@ -40,7 +40,7 @@ test('reversing a loop preserves waypoint 1 and updates the real closing distanc
     order: [0, 1, 2], ids: [1, 2, 3, 1], coords: [1, 2, 3, 1],
     edges: [{ metres: 10 }, { metres: 20 }, { metres: 30 }], snaps: [{ id: 1 }, { id: 2 }, { id: 3 }]
   };
-  const reverse = new Function('routing', 'showRoutes', 'routeDetails', 'render', 'toast', `${code}; return reversePlannedRoute;`)({ selected: route }, ...Array(4).fill(() => {}));
+  const reverse = new Function('routing', 'showRoutes', 'routeDetails', 'render', 'toast', 't', `${code}; return reversePlannedRoute;`)({ selected: route }, ...Array(4).fill(() => {}), key => key);
   reverse();
   assert.deepEqual(route.order, [0, 2, 1]);
   assert.deepEqual(route.ids, [1, 3, 2, 1]);
@@ -72,10 +72,10 @@ test('reversing one worker route leaves other routes, waypoint order and GPX unc
   const routing = { selected };
   const code = source.slice(source.indexOf('    function reversePlannedRoute('), source.indexOf("    $('show-all-routes').addEventListener"));
   const { reversePlannedRoute, plannedGPX } = new Function(
-    'routing', 'showRoutes', 'routeDetails', 'render', 'toast', 'state', '$', 'km', 'xmlText', 'harderTerrainWarning', 'roughSurfaceWarning',
+    'routing', 'showRoutes', 'routeDetails', 'render', 'toast', 'state', '$', 'km', 'xmlText', 'harderTerrainWarning', 'roughSurfaceWarning', 't',
     `${code}; return { reversePlannedRoute, plannedGPX };`
   )(routing, ...Array(4).fill(() => {}), { points }, id => ({ value: id === 'plan-tolerance' ? '30' : '' }),
-    m => `${m / 1000} km`, text => String(text), () => '', () => '');
+    m => `${m / 1000} km`, text => String(text), () => '', () => '', key => key);
   const withoutTimestamp = xml => xml.replace(/<time>.*?<\/time>/, '<time/>');
   const beforeGPX = withoutTimestamp(plannedGPX(other));
   reversePlannedRoute();
